@@ -230,3 +230,14 @@ void executarEvento(Personagem *jogador, int tipoCasa){
             break;
     }
 }
+
+void iniciarCombate(Personagem *jogador){
+    Monstro inimigo;
+    if ((rand() % 2) == 1){
+        inimigo.cargaAtual = 30;
+        inimigo.nome = "Drone defeituoso";
+        inimigo.poderAtaque = 10;
+        inimigo.blindagem = 3;
+        inimigo.xpLiberado = 10;
+    }
+}
