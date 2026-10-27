@@ -43,6 +43,7 @@ void criarPesonagem(Personagem *p);
 void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho);
 int jogarDado(int lados);
 void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]);
+void executarEvento(Personagem *jogador, int tipoCasa);
 
 int main(){
     srand(time(NULL));
@@ -81,6 +82,9 @@ int main(){
                         printf("ATENÇÃO: Você chegou ao núcleo do setor\n");
                         missaoCumprida = 1;
                     }
+                    else{
+                        executarEvento(&heroi,mapa[posicaoAtual]);
+                    }
                     break;
                 
                 case 2:
@@ -99,7 +103,6 @@ int main(){
 
     }
     
-
     return 0;
 }
 
@@ -197,4 +200,33 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
         }
     }
     printf("\n-----------------------------------\n");
+}
+
+void executarEvento(Personagem *jogador, int tipoCasa){
+    switch(tipoCasa){
+        case CASA_VAZIA:
+            printf("Tudo tranquilo, por enquanto! Nenhum sinal de corrupção no sistema!\n");
+            break;
+        case CASA_RECARGA:
+            jogador->cargaAtual += 20;
+            if(jogador->cargaAtual > jogador->cargaMaxima){
+                jogador->cargaAtual = jogador->cargaMaxima;
+            }
+            printf("Ponto de Recarga! Você recebeu 20 pontos de bateria.\n");
+            printf("CARGA ATUAL: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
+            break;
+        case CASA_VIRUS:
+            printf("ALERTA: Armadilha cibernética!\n");
+            jogador->cargaAtual -= 15;
+            printf("Você perdeu 15 pontos de bateria!\n");
+            printf("CARGA ATUAL: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
+            break;
+        case CASA_COMBATE:
+            printf("SISTEMA COMPROMETIDO!!!!\n");
+            // aqui estara a batalha contra os inimigos
+            break;
+        case CASA_MISSAO:
+            printf("Acesso ao núcleo concedido. Preparando reinicializacao...\n");
+            break;
+    }
 }
