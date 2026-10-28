@@ -12,6 +12,12 @@ typedef enum {
     ARTILHEIRO
 } ClasseRobo;
 
+typedef enum{
+    PROTECAO_DANO,
+    ROUBO_CARGA,
+    MAIOR_DANO
+} Tipohabilidade;
+
 typedef enum {
     CASA_VAZIA,
     CASA_COMBATE,
@@ -29,6 +35,7 @@ typedef struct {
     int velocidadeProcessamento;
     int xp;
     ClasseRobo classe;
+    Tipohabilidade habilidade; 
 } Personagem;
 
 typedef struct{
@@ -132,6 +139,7 @@ void criarPesonagem(Personagem *p){
                 p->poderAtaque = 10;
                 p->blindagem = 15;
                 p->velocidadeProcessamento = 5;
+                p->habilidade = PROTECAO_DANO;
                 break;
             case INFILTRADOR:
                 p->classe = INFILTRADOR;
@@ -140,6 +148,7 @@ void criarPesonagem(Personagem *p){
                 p->poderAtaque = 12;
                 p->blindagem = 8;
                 p->velocidadeProcessamento = 18;
+                p->habilidade = ROUBO_CARGA;
                 break;
             case ARTILHEIRO:
                 p->classe = ARTILHEIRO;
@@ -148,6 +157,7 @@ void criarPesonagem(Personagem *p){
                 p->poderAtaque = 20;
                 p->blindagem = 5;
                 p->velocidadeProcessamento = 10;
+                p->habilidade = MAIOR_DANO;
                 break;
             default:
                 printf("Opcao invalida! Você precisa selecionar um Herói.\n");
@@ -235,9 +245,44 @@ void iniciarCombate(Personagem *jogador){
     Monstro inimigo;
     if ((rand() % 2) == 1){
         inimigo.cargaAtual = 30;
-        inimigo.nome = "Drone defeituoso";
+        strcpy(inimigo.nome, "Drone defeituoso");
         inimigo.poderAtaque = 10;
         inimigo.blindagem = 3;
         inimigo.xpLiberado = 10;
     }
+    else{
+        inimigo.cargaAtual = 40;
+        strcpy(inimigo.nome, "Guarda cibernético");
+        inimigo.poderAtaque = 13;
+        inimigo.blindagem = 3;
+        inimigo.xpLiberado = 20;
+    }
+    printf("INIMIGO: %s", inimigo.nome);
+
+    int opcao, dado, dano;
+
+    do{
+        printf("SEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
+        printf("HP DO INIMIGO: %d\n", inimigo.cargaAtual);
+        printf("1 - Atacar\n");
+        printf("2 - Defender\n");
+        printf("3 - Usar habilidade especial\n");
+        printf("4 - Fugir\n");
+        printf("Escolha uma ação: ");
+        scanf("%d", &opcao);
+
+        switch(opcao){
+            case 1:
+                dado = jogarDado(20);
+                printf("Seu dado caiu em %d!\n", dado);
+                dano = (dado + jogador->poderAtaque) - inimigo.blindagem;
+                if (dano < 1){
+                    dano = 1;
+                }
+                printf("Você infringiu %d de dano %s!", dano, inimigo.nome);
+                inimigo.blindagem -= dano;
+        }
+
+    } while(jogador->cargaAtual > 0 && inimigo.cargaAtual > 0);
+    
 }
