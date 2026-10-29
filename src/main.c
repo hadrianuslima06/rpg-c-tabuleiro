@@ -51,6 +51,8 @@ void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho);
 int jogarDado(int lados);
 void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]);
 void executarEvento(Personagem *jogador, int tipoCasa);
+void verificarCargaMax(Personagem *j);
+void iniciarCombate(Personagem *jogador);
 
 int main(){
     srand(time(NULL));
@@ -219,9 +221,8 @@ void executarEvento(Personagem *jogador, int tipoCasa){
             break;
         case CASA_RECARGA:
             jogador->cargaAtual += 20;
-            if(jogador->cargaAtual > jogador->cargaMaxima){
-                jogador->cargaAtual = jogador->cargaMaxima;
-            }
+            verificarCargaMax(jogador);
+            
             printf("Ponto de Recarga! Você recebeu 20 pontos de bateria.\n");
             printf("CARGA ATUAL: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
             break;
@@ -233,6 +234,7 @@ void executarEvento(Personagem *jogador, int tipoCasa){
             break;
         case CASA_COMBATE:
             printf("SISTEMA COMPROMETIDO!!!!\n");
+            iniciarCombate(jogador);
             // aqui estara a batalha contra os inimigos
             break;
         case CASA_MISSAO:
@@ -259,7 +261,7 @@ void iniciarCombate(Personagem *jogador){
     }
     printf("INIMIGO: %s", inimigo.nome);
 
-    int opcao, dado, dano;
+    int opcao, dado, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
 
     do{
         printf("SEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
@@ -279,10 +281,77 @@ void iniciarCombate(Personagem *jogador){
                 if (dano < 1){
                     dano = 1;
                 }
-                printf("Você infringiu %d de dano %s!", dano, inimigo.nome);
-                inimigo.blindagem -= dano;
+                printf("Você infringiu %d de dano %s!\n", dano, inimigo.nome);
+                inimigo.cargaAtual -= dano;
+                break;
+
+            case 2:
+                defesaEfetiva = jogador->blindagem * 1.20;
+                printf("Você ativou o modo defesa!\n");
+                break;
+
+            case 3:
+                printf("Você usou sua habilidade especial!\n");
+                if (jogador->habilidade == ROUBO_CARGA){
+                    dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
+                    inimigo.cargaAtual -= dano;
+                    jogador->cargaAtual += dano;
+                    verificarCargaMax(jogador);
+                    printf("Você roubou %d de carga do inimigo!\n", dano);
+                }
+                else if (jogador->habilidade == PROTECAO_DANO){
+                    defesaEfetiva = (jogador->blindagem)*1.8;
+                    printf("Sua blindagem aumentou em 80%%!\n");
+                }
+                else{
+                    inimigo.cargaAtual -= (jogador->poderAtaque)*1.50;
+                    printf("Seu dano aumentou em 50%%!\n");
+                }
+                break;
+            
+            case 4:
+                dado = jogarDado(6);
+                if (dado > 3){
+                    fugiu = 1;
+                    printf("Você fugiu do combate com sucesso!\n");
+                }
+                else{
+                    printf("Sua fuga falhou! Agora seu inimigo vai te atacar\n");
+                }
+                break;
+            
+            default:
+                printf("Opção invalida! Selecione uma opção válida.\n");
         }
 
-    } while(jogador->cargaAtual > 0 && inimigo.cargaAtual > 0);
+        if(inimigo.cargaAtual > 0 && !fugiu){
+            printf("Turno do inimigo\n");
+            dado = jogarDado(20);
+
+            danoRecebido = (inimigo.poderAtaque + dado) - defesaEfetiva;
+            if(danoRecebido < 1){
+                danoRecebido = 1;
+            }
+            jogador->cargaAtual -= danoRecebido;
+        }
+
+    } while(jogador->cargaAtual > 0 && inimigo.cargaAtual > 0 && !fugiu);
+
+    if (fugiu){
+        printf("Você recuou! Não há recompensas.\n");
+    }
+    else if(jogador->cargaAtual <= 0){
+        printf("ALERTA!!! SUA BATERIA ESGOTOU. SEU ANDROID FOI DESTRUÍDO!\n");
+    }
+    else{
+        printf("AMEAÇA ELIMINADA! Como recompensa você ganhou %dxp.\n", inimigo.xpLiberado);
+        jogador->xp += inimigo.xpLiberado;
+    }
     
+}
+
+void verificarCargaMax(Personagem *j){
+    if (j->cargaAtual > j->cargaMaxima){
+        j->cargaAtual = j->cargaMaxima;
+    }
 }
