@@ -62,53 +62,65 @@ int main(){
     Tipocasa mapa[TAMANHO_TABULEIRO];
     inicializarTabuleiro(mapa, TAMANHO_TABULEIRO);
 
-    int posicaoAtual = 0;
-    int missaoCumprida = 0;
-    int opcao = 0;
+    int faseAtual = 1;
+    int ultimaFase = 3;
 
-    while (!missaoCumprida && heroi.cargaAtual > 0){
-        exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
-        int dado;
+    while (faseAtual <= ultimaFase){
+        int posicaoAtual = 0;
+        int missaoCumprida = 0;
+        int opcao = 0;
 
-        printf("Bateria: %d/%d | Posicao: %d\n", heroi.cargaAtual, heroi.cargaMaxima, posicaoAtual);
-        printf("1 - Rolar Dado de Movimento\n");
-        printf("2 - Ver Status do Androide\n");
+        printf("-------- FASE %d --------\n", faseAtual);
+        while (!missaoCumprida && heroi.cargaAtual > 0){
+            exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
+            int dado;
+    
+            printf("Bateria: %d/%d | Posicao: %d\n", heroi.cargaAtual, heroi.cargaMaxima, posicaoAtual);
+            printf("1 - Rolar Dado de Movimento\n");
+            printf("2 - Ver Status do Androide\n");
+            
+            do {
+                printf("Opcao: ");
+                scanf("%d", &opcao);
+                switch (opcao){
+                    case 1:
+                        dado = jogarDado(6);
+                        printf("O dado parou no número %d!\n", dado);
+                        posicaoAtual += dado;
         
-        do {
-            printf("Opcao: ");
-            scanf("%d", &opcao);
-            switch (opcao){
-                case 1:
-                    dado = jogarDado(6);
-                    printf("O dado parou no número %d!\n", dado);
-                    posicaoAtual += dado;
-    
-                    if(posicaoAtual >= TAMANHO_TABULEIRO){
-                        posicaoAtual = TAMANHO_TABULEIRO - 1;
-                    }
-    
-                    if(mapa[posicaoAtual] == CASA_MISSAO){
-                        printf("ATENÇÃO: Você chegou ao núcleo do setor\n");
-                        missaoCumprida = 1;
-                    }
-                    else{
-                        executarEvento(&heroi,mapa[posicaoAtual]);
-                    }
-                    break;
-                
-                case 2:
-                    printf("\n------- STATUS DO HERÓI -------\n");
-                    printf("CLASSE: %d\n", heroi.classe);
-                    printf("CARGA: %d\n", heroi.cargaAtual);
-                    printf("ATAQUE: %d\n", heroi.poderAtaque);
-                    printf("BLINDAGEM: %d\n", heroi.blindagem);
-                    break;
-                default:
-                    printf("Opção inválida!\n");
-                    break;
-    
-            }
-        } while(opcao > 2 || opcao < 1);
+                        if(posicaoAtual >= TAMANHO_TABULEIRO){
+                            posicaoAtual = TAMANHO_TABULEIRO - 1;
+                        }
+        
+                        if(mapa[posicaoAtual] == CASA_MISSAO){
+                            printf("ATENÇÃO: Você chegou ao núcleo do setor\n");
+                            missaoCumprida = 1;
+                        }
+                        else{
+                            executarEvento(&heroi,mapa[posicaoAtual]);
+                        }
+                        break;
+                    
+                    case 2:
+                        printf("\n------- STATUS DO HERÓI -------\n");
+                        printf("CLASSE: %d\n", heroi.classe);
+                        printf("CARGA: %d\n", heroi.cargaAtual);
+                        printf("ATAQUE: %d\n", heroi.poderAtaque);
+                        printf("BLINDAGEM: %d\n", heroi.blindagem);
+                        break;
+                    default:
+                        printf("Opção inválida!\n");
+                        break;
+        
+                }
+            } while(opcao > 2 || opcao < 1);
+        }
+
+        faseAtual++;
+        if (faseAtual <= ultimaFase){
+            printf("Avançando para a fase %d...\n", faseAtual);
+        }
+
 
     }
     
