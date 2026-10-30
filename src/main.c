@@ -50,9 +50,9 @@ void criarPesonagem(Personagem *p);
 void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho);
 int jogarDado(int lados);
 void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]);
-void executarEvento(Personagem *jogador, int tipoCasa);
+void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual);
 void verificarCargaMax(Personagem *j);
-void iniciarCombate(Personagem *jogador);
+void iniciarCombate(Personagem *jogador, int faseAtual);
 
 int main(){
     srand(time(NULL));
@@ -226,7 +226,7 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
     printf("\n-----------------------------------\n");
 }
 
-void executarEvento(Personagem *jogador, int tipoCasa){
+void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
     switch(tipoCasa){
         case CASA_VAZIA:
             printf("Tudo tranquilo, por enquanto! Nenhum sinal de corrupção no sistema!\n");
@@ -246,7 +246,7 @@ void executarEvento(Personagem *jogador, int tipoCasa){
             break;
         case CASA_COMBATE:
             printf("SISTEMA COMPROMETIDO!!!!\n");
-            iniciarCombate(jogador);
+            iniciarCombate(jogador, faseAtual);
             // aqui estara a batalha contra os inimigos
             break;
         case CASA_MISSAO:
@@ -255,21 +255,21 @@ void executarEvento(Personagem *jogador, int tipoCasa){
     }
 }
 
-void iniciarCombate(Personagem *jogador){
+void iniciarCombate(Personagem *jogador, int faseAtual){
     Monstro inimigo;
     if ((rand() % 2) == 1){
-        inimigo.cargaAtual = 30;
+        inimigo.cargaAtual = 30 * faseAtual;
         strcpy(inimigo.nome, "Drone defeituoso");
-        inimigo.poderAtaque = 10;
-        inimigo.blindagem = 3;
-        inimigo.xpLiberado = 10;
+        inimigo.poderAtaque = 10 + (2 * faseAtual);
+        inimigo.blindagem = 3 + faseAtual;
+        inimigo.xpLiberado = 10 * faseAtual;
     }
     else{
-        inimigo.cargaAtual = 40;
+        inimigo.cargaAtual = 40 * faseAtual;
         strcpy(inimigo.nome, "Guarda cibernético");
-        inimigo.poderAtaque = 13;
-        inimigo.blindagem = 3;
-        inimigo.xpLiberado = 20;
+        inimigo.poderAtaque = 13 + (3 * faseAtual);
+        inimigo.blindagem = 3 + (2 * faseAtual);
+        inimigo.xpLiberado = 20 * faseAtual;
     }
     printf("INIMIGO: %s", inimigo.nome);
 
