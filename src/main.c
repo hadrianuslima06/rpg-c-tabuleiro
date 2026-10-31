@@ -53,6 +53,7 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]);
 void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual);
 void verificarCargaMax(Personagem *j);
 void iniciarCombate(Personagem *jogador, int faseAtual);
+void exibirStatusHeroi(Personagem *jogador);
 
 int main(){
     srand(time(NULL));
@@ -97,16 +98,12 @@ int main(){
                             missaoCumprida = 1;
                         }
                         else{
-                            executarEvento(&heroi,mapa[posicaoAtual]);
+                            executarEvento(&heroi,mapa[posicaoAtual], faseAtual);
                         }
                         break;
                     
                     case 2:
-                        printf("\n------- STATUS DO HERÓI -------\n");
-                        printf("CLASSE: %d\n", heroi.classe);
-                        printf("CARGA: %d\n", heroi.cargaAtual);
-                        printf("ATAQUE: %d\n", heroi.poderAtaque);
-                        printf("BLINDAGEM: %d\n", heroi.blindagem);
+                        exibirStatusHeroi(&heroi);
                         break;
                     default:
                         printf("Opção inválida!\n");
@@ -257,23 +254,31 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
 
 void iniciarCombate(Personagem *jogador, int faseAtual){
     Monstro inimigo;
-    if ((rand() % 2) == 1){
+    int dado = rand() % 3;
+    if (dado == 1){
         inimigo.cargaAtual = 30 * faseAtual;
         strcpy(inimigo.nome, "Drone defeituoso");
         inimigo.poderAtaque = 10 + (2 * faseAtual);
         inimigo.blindagem = 3 + faseAtual;
         inimigo.xpLiberado = 10 * faseAtual;
     }
-    else{
+    else if(dado == 2){
         inimigo.cargaAtual = 40 * faseAtual;
         strcpy(inimigo.nome, "Guarda cibernético");
         inimigo.poderAtaque = 13 + (3 * faseAtual);
         inimigo.blindagem = 3 + (2 * faseAtual);
         inimigo.xpLiberado = 20 * faseAtual;
     }
+    else{
+        inimigo.cargaAtual = 45 * faseAtual;
+        strcpy(inimigo.nome, "Sentinela de elite");
+        inimigo.poderAtaque = 15 + (3.5 * faseAtual);
+        inimigo.blindagem = 3 + (3 * faseAtual);
+        inimigo.xpLiberado = 25 * faseAtual;
+    }
     printf("INIMIGO: %s", inimigo.nome);
 
-    int opcao, dado, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
+    int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
 
     do{
         printf("SEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
@@ -344,6 +349,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
             if(danoRecebido < 1){
                 danoRecebido = 1;
             }
+            printf("O %s deu %d de dano em você!\n", inimigo.nome, danoRecebido);
             jogador->cargaAtual -= danoRecebido;
         }
 
@@ -366,4 +372,22 @@ void verificarCargaMax(Personagem *j){
     if (j->cargaAtual > j->cargaMaxima){
         j->cargaAtual = j->cargaMaxima;
     }
+}
+
+void exibirStatusHeroi(Personagem *jogador){
+    char classe[50];
+    if (jogador->classe == 1){
+        strcpy(classe, "VANGUARDA");
+    }
+    else if(jogador->classe == 2){
+        strcpy(classe, "INFILTRADOR");
+    }
+    else{
+        strcpy(classe, "ARTILHEIRO");
+    }
+    printf("\n------- STATUS DO HERÓI -------\n");
+    printf("CLASSE: %s\n", classe);
+    printf("CARGA: %d\n", jogador->cargaAtual);
+    printf("ATAQUE: %d\n", jogador->poderAtaque);
+    printf("BLINDAGEM: %d\n", jogador->blindagem);
 }
