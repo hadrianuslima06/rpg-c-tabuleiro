@@ -55,6 +55,7 @@ void verificarCargaMax(Personagem *j);
 void iniciarCombate(Personagem *jogador, int faseAtual);
 void exibirStatusHeroi(Personagem *jogador);
 void verificarXpMax(Personagem *jogador);
+void exibirHistoriaFase(int fase);
 
 int main(){
     srand(time(NULL));
@@ -72,7 +73,7 @@ int main(){
         int missaoCumprida = 0;
         int opcao = 0;
 
-        printf("-------- FASE %d --------\n", faseAtual);
+        exibirHistoriaFase(faseAtual);
         while (!missaoCumprida && heroi.cargaAtual > 0){
             exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
             int dado;
@@ -424,4 +425,40 @@ void verificarXpMax(Personagem *jogador){
         
 
     }
+}
+
+void exibirHistoriaFase(int fase){
+    printf("======================================================\n");
+    switch(fase){
+        case 1:
+            printf("                      FASE 1\n");
+            printf("           INVASAO DO PERIMETRO EXTERNO\n");
+            printf("------------------------------------------------------\n");
+            printf("Missao: Sobreviver as defesas iniciais e avancar.\n");
+            printf("O sistema de seguranca foi corrompido por um virus\n");
+            printf("desconhecido. Os drones de patrulha estao hostis.\n");
+            printf("Voce e a ultima unidade operacional no setor.\n");
+            break;
+
+        case 2:
+            printf("                      FASE 2\n");
+            printf("        SETOR DE MANUTENCAO E PROCESSAMENTO\n");
+            printf("------------------------------------------------------\n");
+            printf("Missao: Atravessar a area industrial sem esgotar a bateria.\n");
+            printf("As luzes de emergencia piscam no subsolo da base.\n");
+            printf("O ar esta denso com o cheiro de circuitos queimados.\n");
+            printf("Os guardas ciberneticos pesados bloqueiam o caminho.\n");
+            break;
+
+        case 3:
+            printf("                      FASE 3\n");
+            printf("                O NUCLEO DO SISTEMA\n");
+            printf("------------------------------------------------------\n");
+            printf("Missao: Alcancar o mainframe e expurgar a ameaca.\n");
+            printf("Voce chegou ao coracao da instalacao. A energia pulsa\n");
+            printf("de forma instavel e os sistemas estao em colapso.\n");
+            printf("Apenas as maquinas de elite protegem este local.\n");
+            break;
+    }
+    printf("======================================================\n");
 }
