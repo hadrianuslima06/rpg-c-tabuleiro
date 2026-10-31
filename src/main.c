@@ -54,6 +54,7 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual);
 void verificarCargaMax(Personagem *j);
 void iniciarCombate(Personagem *jogador, int faseAtual);
 void exibirStatusHeroi(Personagem *jogador);
+void verificarXpMax(Personagem *jogador);
 
 int main(){
     srand(time(NULL));
@@ -364,6 +365,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     else{
         printf("AMEAÇA ELIMINADA! Como recompensa você ganhou %dxp.\n", inimigo.xpLiberado);
         jogador->xp += inimigo.xpLiberado;
+        verificarXpMax(jogador);
     }
     
 }
@@ -390,4 +392,36 @@ void exibirStatusHeroi(Personagem *jogador){
     printf("CARGA: %d\n", jogador->cargaAtual);
     printf("ATAQUE: %d\n", jogador->poderAtaque);
     printf("BLINDAGEM: %d\n", jogador->blindagem);
+}
+
+void verificarXpMax(Personagem *jogador){
+    if(jogador->xp >= 40){
+        jogador->xp -= 40;
+        switch(jogador->classe){
+            case VANGUARDA:
+                jogador->cargaMaxima += 20;
+                jogador->blindagem += 3;
+                jogador->poderAtaque += 1;
+                printf("Melhorias: +20 Bateria Max, +3 Blindagem, +1 Ataque\n");
+                break;
+            
+            case INFILTRADOR:
+                jogador->cargaMaxima += 10;
+                jogador->velocidadeProcessamento += 4;
+                jogador->poderAtaque += 2;
+                printf("Melhorias: +10 Bateria Max, +4 Processamento, +2 Ataque\n");
+                break;
+
+            case ARTILHEIRO:
+                jogador->cargaMaxima += 5;
+                jogador->poderAtaque += 5;
+                jogador->blindagem += 1;
+                printf("Melhorias: +5 Bateria Max, +5 Ataque, +1 Blindagem\n");
+                break;
+        }
+        verificarXpMax(jogador);
+        jogador->cargaAtual = jogador->cargaMaxima;
+        
+
+    }
 }
