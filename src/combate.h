@@ -1,0 +1,9 @@
+#ifndef COMBATE_H
+#define COMBATE_H
+
+#include "estruturas.h"
+
+int jogarDado(int lados);
+void iniciarCombate(Personagem *jogador, int faseAtual);
+
+#endif
