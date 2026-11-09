@@ -8,17 +8,6 @@
 #include "mapa.h"
 #include "combate.h"
 
-void criarPersonagem(Personagem *p);
-void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho);
-int jogarDado(int lados);
-void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]);
-void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual);
-void verificarCargaMax(Personagem *j);
-void iniciarCombate(Personagem *jogador, int faseAtual);
-void exibirStatusHeroi(Personagem *jogador);
-void verificarXpMax(Personagem *jogador);
-void exibirHistoriaFase(int fase);
-
 int main(){
     srand(time(NULL));
     Personagem heroi;
