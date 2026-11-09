@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "mapa.h"
 #include "combate.h"
+#include "terminal.h"
 
 void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho){
     for (int i = 0; i < tamanho; i++){
@@ -74,6 +75,7 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
 }
 
 void exibirHistoriaFase(int fase){
+    limpar_terminal();
     printf("======================================================\n");
     switch(fase){
         case 1:
