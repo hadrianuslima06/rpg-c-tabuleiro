@@ -7,6 +7,7 @@
 #include "personagem.h"
 #include "mapa.h"
 #include "combate.h"
+#include "terminal.h"
 
 int main(){
     srand(time(NULL));
@@ -28,7 +29,7 @@ int main(){
         while (!missaoCumprida && heroi.cargaAtual > 0){
             exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
             int dado;
-    
+
             printf("Bateria: %d/%d | Posicao: %d\n", heroi.cargaAtual, heroi.cargaMaxima, posicaoAtual);
             printf("1 - Rolar Dado de Movimento\n");
             printf("2 - Ver Status do Androide\n");
