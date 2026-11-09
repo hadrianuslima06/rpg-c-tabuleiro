@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "mapa.h"
+#include "combate.h"
 
 void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho){
     for (int i = 0; i < tamanho; i++){
