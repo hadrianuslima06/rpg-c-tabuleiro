@@ -37,7 +37,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
 
     do{
-        printf("SEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
+        printf("\nSEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
         printf("HP DO INIMIGO: %d\n", inimigo.cargaAtual);
         printf("1 - Atacar\n");
         printf("2 - Defender\n");
