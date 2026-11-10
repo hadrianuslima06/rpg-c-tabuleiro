@@ -41,4 +41,10 @@ typedef struct{
     int xpLiberado;
 } Monstro;
 
+typedef struct{
+    Monstro infoBase;
+    Tipohabilidade habilidade;
+} Chefe;
+
+
 #endif
