@@ -69,6 +69,7 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
             // aqui estara a batalha contra os inimigos
             break;
         case CASA_MISSAO:
+            iniciarCombateChefe(jogador, faseAtual);
             printf("Acesso ao núcleo concedido. Preparando reinicializacao...\n");
             break;
     }
