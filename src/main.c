@@ -26,6 +26,7 @@ int main(){
         int opcao = 0;
 
         exibirHistoriaFase(faseAtual);
+        pausar();
         while (!missaoCumprida && heroi.cargaAtual > 0){
             exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
             int dado;
