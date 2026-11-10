@@ -49,6 +49,7 @@ int main(){
                         }
         
                         if(mapa[posicaoAtual] == CASA_MISSAO){
+                            executarEvento(&heroi,mapa[posicaoAtual], faseAtual);
                             printf("ATENÇÃO: Você chegou ao núcleo do setor\n");
                             missaoCumprida = 1;
                         }
