@@ -3,6 +3,7 @@
 #include <string.h>
 #include "combate.h"
 #include "personagem.h"
+#include "terminal.h"
 
 int jogarDado(int lados){
     return (rand() % lados) + 1;
@@ -37,6 +38,8 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
 
     do{
+        pausar();
+        limpar_terminal();
         printf("\nSEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
         printf("HP DO INIMIGO: %d\n", inimigo.cargaAtual);
         printf("1 - Atacar\n");
