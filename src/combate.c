@@ -174,7 +174,6 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
         printf("1 - Atacar\n");
         printf("2 - Defender\n");
         printf("3 - Usar habilidade especial\n");
-        printf("4 - Fugir\n");
         printf("Escolha uma ação: ");
         scanf("%d", &opcao);
 
@@ -217,17 +216,6 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                 }
                 else{
                     printf("Você não pode usar sua habilidade nos próximos %d turno\n", saldoTurnosHabilidade);
-                }
-                break;
-            
-            case 4:
-                dado = jogarDado(6);
-                if (dado > 3){
-                    fugiu = 1;
-                    printf("Você fugiu do combate com sucesso!\n");
-                }
-                else{
-                    printf("Sua fuga falhou! Agora seu inimigo vai te atacar\n");
                 }
                 break;
             
