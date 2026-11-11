@@ -35,7 +35,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     }
     printf("INIMIGO: %s", inimigo.nome);
 
-    int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
+    int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0, saldoTurnosHabilidade = 0;
 
     do{
         pausar();
@@ -67,25 +67,32 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                 break;
 
             case 3:
-                printf("Você usou sua habilidade especial!\n");
-                if (jogador->habilidade == ROUBO_CARGA){
-                    dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
-                    inimigo.cargaAtual -= dano;
-                    jogador->cargaAtual += dano;
-                    verificarCargaMax(jogador);
-                    printf("Você roubou %d de carga do inimigo!\n", dano);
-                }
-                else if (jogador->habilidade == PROTECAO_DANO){
-                    defesaEfetiva = (jogador->blindagem)*1.8;
-                    printf("Sua blindagem aumentou em 80%%!\n");
+                if (saldoTurnosHabilidade <= 0){
+                    printf("Você usou sua habilidade especial!\n");
+                    if (jogador->habilidade == ROUBO_CARGA){
+                        dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
+                        inimigo.cargaAtual -= dano;
+                        jogador->cargaAtual += dano;
+                        verificarCargaMax(jogador);
+                        printf("Você roubou %d de carga do inimigo!\n", dano);
+                    }
+                    else if (jogador->habilidade == PROTECAO_DANO){
+                        defesaEfetiva = (jogador->blindagem)*1.8;
+                        printf("Sua blindagem aumentou em 80%%!\n");
+                    }
+                    else{
+                        inimigo.cargaAtual -= (jogador->poderAtaque)*1.50;
+                        printf("Seu dano aumentou em 50%%!\n");
+                    }
+                    saldoTurnosHabilidade = 5;
+                    
                 }
                 else{
-                    inimigo.cargaAtual -= (jogador->poderAtaque)*1.50;
-                    printf("Seu dano aumentou em 50%%!\n");
+                    printf("Você não pode usar sua habilidade nos próximos %d turno\n", saldoTurnosHabilidade);
                 }
                 break;
-            
-            case 4:
+                
+                case 4:
                 dado = jogarDado(6);
                 if (dado > 3){
                     fugiu = 1;
@@ -95,22 +102,23 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                     printf("Sua fuga falhou! Agora seu inimigo vai te atacar\n");
                 }
                 break;
-            
-            default:
+                
+                default:
                 printf("Opção invalida! Selecione uma opção válida.\n");
-        }
-
-        if(inimigo.cargaAtual > 0 && !fugiu){
-            printf("Turno do inimigo\n");
-            dado = jogarDado(20);
-
-            danoRecebido = (inimigo.poderAtaque + dado) - defesaEfetiva;
-            if(danoRecebido < 1){
-                danoRecebido = 1;
             }
-            printf("O %s deu %d de dano em você!\n", inimigo.nome, danoRecebido);
-            jogador->cargaAtual -= danoRecebido;
-        }
+            
+            if(inimigo.cargaAtual > 0 && !fugiu){
+                printf("Turno do inimigo\n");
+                dado = jogarDado(20);
+                
+                danoRecebido = (inimigo.poderAtaque + dado) - defesaEfetiva;
+                if(danoRecebido < 1){
+                    danoRecebido = 1;
+                }
+                printf("O %s deu %d de dano em você!\n", inimigo.nome, danoRecebido);
+                jogador->cargaAtual -= danoRecebido;
+            }
+        saldoTurnosHabilidade--;
 
     } while(jogador->cargaAtual > 0 && inimigo.cargaAtual > 0 && !fugiu);
 
