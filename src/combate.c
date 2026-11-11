@@ -137,30 +137,30 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
 }
 
 void iniciarCombateChefe(Personagem *jogador, int faseAtual){
-    Chefe chefao;
+    Monstro chefao;
     switch(faseAtual){
         case 1:
-            chefao.infoBase.cargaAtual = 80;
-            chefao.infoBase.poderAtaque = 14;
-            chefao.infoBase.blindagem = 8;
-            chefao.infoBase.xpLiberado = 50;
-            strcpy(chefao.infoBase.nome, "Guardião do Perímetro");
+            chefao.cargaAtual = 80;
+            chefao.poderAtaque = 14;
+            chefao.blindagem = 8;
+            chefao.xpLiberado = 50;
+            strcpy(chefao.nome, "Guardião do Perímetro");
             break;
         
         case 2:
-            chefao.infoBase.cargaAtual = 140;
-            chefao.infoBase.poderAtaque = 22;
-            chefao.infoBase.blindagem = 12;
-            chefao.infoBase.xpLiberado = 80;
-            strcpy(chefao.infoBase.nome, "Amálgama Cibernético");
+            chefao.cargaAtual = 140;
+            chefao.poderAtaque = 22;
+            chefao.blindagem = 12;
+            chefao.xpLiberado = 80;
+            strcpy(chefao.nome, "Amálgama Cibernético");
             break;
 
         case 3:
-            chefao.infoBase.cargaAtual = 250;
-            chefao.infoBase.poderAtaque = 28;
-            chefao.infoBase.blindagem = 18;
-            chefao.infoBase.xpLiberado = 150;
-            strcpy(chefao.infoBase.nome, "Vírus Primordial");
+            chefao.cargaAtual = 250;
+            chefao.poderAtaque = 28;
+            chefao.blindagem = 18;
+            chefao.xpLiberado = 150;
+            strcpy(chefao.nome, "Vírus Primordial");
             break;
     }
 
@@ -170,7 +170,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
         pausar();
         limpar_terminal();
         printf("\nSEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
-        printf("HP DO INIMIGO: %d\n", chefao.infoBase.cargaAtual);
+        printf("HP DO INIMIGO: %d\n", chefao.cargaAtual);
         printf("1 - Atacar\n");
         printf("2 - Defender\n");
         printf("3 - Usar habilidade especial\n");
@@ -181,12 +181,12 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             case 1:
                 dado = jogarDado(20);
                 printf("Seu dado caiu em %d!\n", dado);
-                dano = (dado + jogador->poderAtaque) - chefao.infoBase.blindagem;
+                dano = (dado + jogador->poderAtaque) - chefao.blindagem;
                 if (dano < 1){
                     dano = 1;
                 }
-                printf("Você infringiu %d de dano %s!\n", dano, chefao.infoBase.nome);
-                chefao.infoBase.cargaAtual -= dano;
+                printf("Você infringiu %d de dano %s!\n", dano, chefao.nome);
+                chefao.cargaAtual -= dano;
                 break;
 
             case 2:
@@ -199,7 +199,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                     printf("Você usou sua habilidade especial!\n");
                     if (jogador->habilidade == ROUBO_CARGA){
                         dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
-                        chefao.infoBase.cargaAtual -= dano;
+                        chefao.cargaAtual -= dano;
                         jogador->cargaAtual += dano;
                         verificarCargaMax(jogador);
                         printf("Você roubou %d de carga do inimigo!\n", dano);
@@ -209,7 +209,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                         printf("Sua blindagem aumentou em 80%%!\n");
                     }
                     else{
-                        chefao.infoBase.cargaAtual -= (jogador->poderAtaque)*1.50;
+                        chefao.cargaAtual -= (jogador->poderAtaque)*1.50;
                         printf("Seu dano aumentou em 50%%!\n");
                     }
                     saldoTurnosHabilidade = 3;
@@ -223,27 +223,27 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                 printf("Opção invalida! Selecione uma opção válida.\n");
         }
 
-        if(chefao.infoBase.cargaAtual > 0 && !fugiu){
+        if(chefao.cargaAtual > 0 && !fugiu){
             printf("Turno do inimigo\n");
             dado = jogarDado(20);
 
-            danoRecebido = (chefao.infoBase.poderAtaque + dado) - defesaEfetiva;
+            danoRecebido = (chefao.poderAtaque + dado) - defesaEfetiva;
             if(danoRecebido < 1){
                 danoRecebido = 1;
             }
-            printf("O %s deu %d de dano em você!\n", chefao.infoBase.nome, danoRecebido);
+            printf("O %s deu %d de dano em você!\n", chefao.nome, danoRecebido);
             jogador->cargaAtual -= danoRecebido;
         }
         saldoTurnosHabilidade--;
 
-    } while(jogador->cargaAtual > 0 && chefao.infoBase.cargaAtual > 0 && !fugiu);
+    } while(jogador->cargaAtual > 0 && chefao.cargaAtual > 0 && !fugiu);
 
     if(jogador->cargaAtual <= 0){
         printf("ALERTA!!! SUA BATERIA ESGOTOU. SEU ANDROID FOI DESTRUÍDO!\n");
     }
     else{
-        printf("AMEAÇA ELIMINADA! Como recompensa você ganhou %dxp.\n", chefao.infoBase.xpLiberado);
-        jogador->xp += chefao.infoBase.xpLiberado;
+        printf("AMEAÇA ELIMINADA! Como recompensa você ganhou %dxp.\n", chefao.xpLiberado);
+        jogador->xp += chefao.xpLiberado;
         verificarXpMax(jogador);
     }
 }
