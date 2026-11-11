@@ -164,7 +164,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             break;
     }
 
-    int opcao, dano, dado, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0;
+    int opcao, dano, dado, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0, saldoTurnosHabilidade = 0;
 
     do{
         pausar();
@@ -196,21 +196,27 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                 break;
 
             case 3:
-                printf("Você usou sua habilidade especial!\n");
-                if (jogador->habilidade == ROUBO_CARGA){
-                    dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
-                    chefao.infoBase.cargaAtual -= dano;
-                    jogador->cargaAtual += dano;
-                    verificarCargaMax(jogador);
-                    printf("Você roubou %d de carga do inimigo!\n", dano);
-                }
-                else if (jogador->habilidade == PROTECAO_DANO){
-                    defesaEfetiva = (jogador->blindagem)*1.8;
-                    printf("Sua blindagem aumentou em 80%%!\n");
+                if (saldoTurnosHabilidade <= 0){
+                    printf("Você usou sua habilidade especial!\n");
+                    if (jogador->habilidade == ROUBO_CARGA){
+                        dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
+                        chefao.infoBase.cargaAtual -= dano;
+                        jogador->cargaAtual += dano;
+                        verificarCargaMax(jogador);
+                        printf("Você roubou %d de carga do inimigo!\n", dano);
+                    }
+                    else if (jogador->habilidade == PROTECAO_DANO){
+                        defesaEfetiva = (jogador->blindagem)*1.8;
+                        printf("Sua blindagem aumentou em 80%%!\n");
+                    }
+                    else{
+                        chefao.infoBase.cargaAtual -= (jogador->poderAtaque)*1.50;
+                        printf("Seu dano aumentou em 50%%!\n");
+                    }
+                    saldoTurnosHabilidade = 3;
                 }
                 else{
-                    chefao.infoBase.cargaAtual -= (jogador->poderAtaque)*1.50;
-                    printf("Seu dano aumentou em 50%%!\n");
+                    printf("Você não pode usar sua habilidade nos próximos %d turno\n", saldoTurnosHabilidade);
                 }
                 break;
             
@@ -240,6 +246,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             printf("O %s deu %d de dano em você!\n", chefao.infoBase.nome, danoRecebido);
             jogador->cargaAtual -= danoRecebido;
         }
+        saldoTurnosHabilidade--;
 
     } while(jogador->cargaAtual > 0 && chefao.infoBase.cargaAtual > 0 && !fugiu);
 
