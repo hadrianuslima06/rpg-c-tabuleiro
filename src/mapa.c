@@ -111,3 +111,29 @@ void exibirHistoriaFase(int fase){
     }
     printf("======================================================\n");
 }
+
+void exibirMensagemFinal(Personagem jogador){
+    if (!verificarCargaMin(&jogador)){
+        printf("\n======================================================\n");
+        printf(" [ MISSÃO CUMPRIDA ] - CONTROLE DO SISTEMA RESTAURADO\n");
+        printf("------------------------------------------------------\n");
+        printf("Parabéns, Unidade %s!\n", jogador.nome);
+        printf("O Vírus Primordial foi completamente expurgado.\n");
+        printf("As luzes de emergência apagam-se enquanto o mainframe\n");
+        printf("reinicia os protocolos de segurança padrão.\n");
+        printf("O Setor Alfa está a salvo graças a você.\n\n");
+        printf("                   VITÓRIA TOTAL!\n");
+        printf("======================================================\n\n");
+    }
+    else{
+        printf("\n======================================================\n");
+        printf("      [ FALHA CATASTRÓFICA ] - BATERIA ESGOTADA\n");
+        printf("------------------------------------------------------\n");
+        printf("A sua visão ótica escurece à medida que a energia cai a 0%%.\n");
+        printf("Os seus circuitos param de responder. O Vírus Primordial\n");
+        printf("acaba de consumir os últimos vestígios do mainframe.\n");
+        printf("O Setor Alfa foi perdido para sempre...\n\n");
+        printf("                     GAME OVER\n");
+        printf("======================================================\n\n");
+    }
+}
