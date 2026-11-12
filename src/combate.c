@@ -33,7 +33,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
         inimigo.blindagem = 3 + (3 * faseAtual);
         inimigo.xpLiberado = 25 * faseAtual;
     }
-    printf("INIMIGO: %s", inimigo.nome);
+    printf("INIMIGO: %s\n", inimigo.nome);
 
     int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0, saldoTurnosHabilidade = 0;
 
