@@ -118,6 +118,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                 printf("O %s deu %d de dano em você!\n", inimigo.nome, danoRecebido);
                 jogador->cargaAtual -= danoRecebido;
             }
+        defesaEfetiva = jogador->blindagem;
         saldoTurnosHabilidade--;
 
     } while(jogador->cargaAtual > 0 && inimigo.cargaAtual > 0 && !fugiu);
