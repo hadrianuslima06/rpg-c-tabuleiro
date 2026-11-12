@@ -7,5 +7,6 @@ void criarPersonagem(Personagem *p);
 void verificarCargaMax(Personagem *j);
 void exibirStatusHeroi(Personagem *jogador);
 void verificarXpMax(Personagem *jogador);
+int verificarCargaMin(Personagem *jogador);
 
 #endif
