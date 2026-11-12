@@ -109,3 +109,12 @@ void verificarXpMax(Personagem *jogador){
 
     }
 }
+
+int verificarCargaMin(Personagem *jogador){
+    if (jogador->cargaAtual <= 0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
