@@ -236,6 +236,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             jogador->cargaAtual -= danoRecebido;
         }
         saldoTurnosHabilidade--;
+        defesaEfetiva = jogador->blindagem;
 
     } while(jogador->cargaAtual > 0 && chefao.cargaAtual > 0 && !fugiu);
 
