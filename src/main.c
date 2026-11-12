@@ -82,6 +82,8 @@ int main(){
 
 
     }
+    limpar_terminal();
+    exibirMensagemFinal(heroi);
     
     return 0;
 }
