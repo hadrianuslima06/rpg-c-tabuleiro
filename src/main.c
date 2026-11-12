@@ -25,9 +25,14 @@ int main(){
         int missaoCumprida = 0;
         int opcao = 0;
 
-        exibirHistoriaFase(faseAtual);
-        pausar();
-        while (!missaoCumprida && heroi.cargaAtual > 0){
+        if (!verificarCargaMin(&heroi)){
+            exibirHistoriaFase(faseAtual);
+            pausar();
+        }
+        else{
+            break;
+        }
+        while (!missaoCumprida && !verificarCargaMin(&heroi)){
             exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
             int dado;
 
@@ -70,9 +75,10 @@ int main(){
         }
 
         faseAtual++;
-        if (faseAtual <= ultimaFase){
+        if (faseAtual <= ultimaFase && !verificarCargaMin(&heroi)){
             printf("Avançando para a fase %d...\n", faseAtual);
         }
+        pausar();
 
 
     }
