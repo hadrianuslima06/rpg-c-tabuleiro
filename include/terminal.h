@@ -3,5 +3,6 @@
 
 void limpar_terminal();
 void pausar();
+int lerOpcaoSegura();
 
 #endif
