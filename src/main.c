@@ -22,8 +22,8 @@ int main(){
 
     while (faseAtual <= ultimaFase){
         int posicaoAtual = 0;
-        int missaoCumprida = 0;
         int opcao = 0;
+        heroi.missaoCumprida = 0;
 
         if (!verificarCargaMin(&heroi)){
             exibirHistoriaFase(faseAtual);
@@ -32,7 +32,7 @@ int main(){
         else{
             break;
         }
-        while (!missaoCumprida && !verificarCargaMin(&heroi)){
+        while (heroi.missaoCumprida != 2 && !verificarCargaMin(&heroi)){
             exibirTabuleiro(TAMANHO_TABULEIRO, posicaoAtual, mapa);
             int dado;
 
@@ -53,10 +53,17 @@ int main(){
                             posicaoAtual = TAMANHO_TABULEIRO - 1;
                         }
         
-                        if(mapa[posicaoAtual] == CASA_MISSAO){
-                            executarEvento(&heroi,mapa[posicaoAtual], faseAtual);
-                            printf("ATENÇÃO: Você chegou ao núcleo do setor\n");
-                            missaoCumprida = 1;
+                        if(mapa[posicaoAtual] == CASA_CHEFAO){
+                            if (faseAtual >= 2 && heroi.missaoCumprida == 0) {
+                                printf("\nACESSO NEGADO! Faltam credenciais!\n");
+                                printf("Você precisa encontrar o item na casa [ ? ] antes do chefe.\n");
+                                printf("Teletransportando para o início do setor...\n");
+                                posicaoAtual = 0;
+                            } 
+                            else {
+                                executarEvento(&heroi, mapa[posicaoAtual], faseAtual);
+                            }
+
                         }
                         else{
                             executarEvento(&heroi,mapa[posicaoAtual], faseAtual);
