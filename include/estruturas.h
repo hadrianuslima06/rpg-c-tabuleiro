@@ -23,6 +23,7 @@ typedef enum {
 
 typedef struct {
     char nome[50];
+    char acessorio[50];
     int cargaAtual;
     int cargaMaxima;
     int poderAtaque;
