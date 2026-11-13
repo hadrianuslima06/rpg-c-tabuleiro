@@ -10,14 +10,16 @@ void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho){
 
     tabuleiro[3] = CASA_COMBATE;
     tabuleiro[5] = CASA_RECARGA;
+    tabuleiro[7] = CASA_OBJETIVO;
     tabuleiro[8] = CASA_COMBATE;
     tabuleiro[10] = CASA_RECOMPENSA;
     tabuleiro[11] = CASA_VIRUS;
     tabuleiro[13] = CASA_RECOMPENSA;
+    tabuleiro[14] = CASA_OBJETIVO;
     tabuleiro[15] = CASA_COMBATE;
     tabuleiro[17] = CASA_RECARGA;
     tabuleiro[18] = CASA_RECOMPENSA;
-    tabuleiro[tamanho-1] = CASA_MISSAO;
+    tabuleiro[tamanho-1] = CASA_CHEFAO;
 }
 
 void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
@@ -39,11 +41,14 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
                 case CASA_VIRUS:
                     printf("[ * ]");
                     break;
-                case CASA_MISSAO:
+                case CASA_CHEFAO:
                     printf("[ M ]");
                     break;
                 case CASA_RECOMPENSA:
                     printf("[ $ ]");
+                    break;
+                case CASA_OBJETIVO:
+                    printf("[ ? ]");
                     break;
             }
         }
@@ -74,9 +79,12 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
             iniciarCombate(jogador, faseAtual);
             // aqui estara a batalha contra os inimigos
             break;
-        case CASA_MISSAO:
+        case CASA_CHEFAO:
             iniciarCombateChefe(jogador, faseAtual);
             printf("Acesso ao núcleo concedido. Preparando reinicializacao...\n");
+            if (!verificarCargaMin(jogador)){
+                jogador->missaoCumprida = 2;
+            }
             break;
         case CASA_RECOMPENSA:
             printf("VOCÊ ENCONTROU UM BAU!\n");
@@ -95,6 +103,16 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
                 printf("Voce ganhou 15 pontos de blindagem!\n");
             }
             break;
+        case CASA_OBJETIVO:
+            if (faseAtual == 2){
+                printf("Você encontrou o CARTÃO DE ACESSO!\n");
+                jogador->missaoCumprida = 1;
+            }
+            else if(faseAtual == 3){
+                printf("Você baixou o CÓDIGO DE SOBRESCRITA!\n");
+                jogador->missaoCumprida = 1;
+            }
+            break;
     }
 }
 
@@ -109,27 +127,24 @@ void exibirHistoriaFase(int fase){
             printf("Missao: Sobreviver as defesas iniciais e avancar.\n");
             printf("O sistema de seguranca foi corrompido por um virus\n");
             printf("desconhecido. Os drones de patrulha estao hostis.\n");
-            printf("Voce e a ultima unidade operacional no setor.\n");
             break;
 
         case 2:
             printf("                      FASE 2\n");
             printf("        SETOR DE MANUTENCAO E PROCESSAMENTO\n");
             printf("------------------------------------------------------\n");
-            printf("Missao: Atravessar a area industrial sem esgotar a bateria.\n");
+            printf("Missao: Vasculhe as casas [ ? ] para encontrar o\n");
+            printf("CARTAO DE ACESSO, e derrote o Amalgama Cibernetico.\n");
             printf("As luzes de emergencia piscam no subsolo da base.\n");
-            printf("O ar esta denso com o cheiro de circuitos queimados.\n");
-            printf("Os guardas ciberneticos pesados bloqueiam o caminho.\n");
             break;
 
         case 3:
             printf("                      FASE 3\n");
             printf("                O NUCLEO DO SISTEMA\n");
             printf("------------------------------------------------------\n");
-            printf("Missao: Alcancar o mainframe e expurgar a ameaca.\n");
+            printf("Missao: Vasculhe as casas [ ? ] para baixar o\n");
+            printf("CODIGO DE SOBRESCRITA, e elimine o Virus Primordial.\n");
             printf("Voce chegou ao coracao da instalacao. A energia pulsa\n");
-            printf("de forma instavel e os sistemas estao em colapso.\n");
-            printf("Apenas as maquinas de elite protegem este local.\n");
             break;
     }
     printf("======================================================\n");
