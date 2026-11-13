@@ -11,9 +11,12 @@ void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho){
     tabuleiro[3] = CASA_COMBATE;
     tabuleiro[5] = CASA_RECARGA;
     tabuleiro[8] = CASA_COMBATE;
+    tabuleiro[10] = CASA_RECOMPENSA;
     tabuleiro[11] = CASA_VIRUS;
+    tabuleiro[13] = CASA_RECOMPENSA;
     tabuleiro[15] = CASA_COMBATE;
     tabuleiro[17] = CASA_RECARGA;
+    tabuleiro[18] = CASA_RECOMPENSA;
     tabuleiro[tamanho-1] = CASA_MISSAO;
 }
 
@@ -25,19 +28,22 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
         else{
             switch (tabuleiro[i]){
                 case CASA_VAZIA:
-                    printf("[  ]" );
+                    printf("[  ]");
                     break;
                 case CASA_COMBATE:
-                    printf("[ ! ]" );
+                    printf("[ ! ]");
                     break;
                 case CASA_RECARGA:
-                    printf("[ + ]" );
+                    printf("[ + ]");
                     break;
                 case CASA_VIRUS:
-                    printf("[ * ]" );
+                    printf("[ * ]");
                     break;
                 case CASA_MISSAO:
-                    printf("[ M ]" );
+                    printf("[ M ]");
+                    break;
+                case CASA_RECOMPENSA:
+                    printf("[ $ ]");
                     break;
             }
         }
@@ -71,6 +77,23 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
         case CASA_MISSAO:
             iniciarCombateChefe(jogador, faseAtual);
             printf("Acesso ao núcleo concedido. Preparando reinicializacao...\n");
+            break;
+        case CASA_RECOMPENSA:
+            printf("VOCÊ ENCONTROU UM BAU!\n");
+            int dado = jogarDado(3);
+            if (dado == 1){
+                jogador->cargaMaxima += 10;
+                jogador->cargaAtual = jogador->cargaMaxima;
+                printf("Voce ganhou 10 pontos de bateria!\n");
+            }
+            else if (dado == 2){
+                jogador->poderAtaque += 10;
+                printf("Voce ganhou 10 pontos de ataque!\n");
+            }
+            else{
+                jogador->blindagem += 15;
+                printf("Voce ganhou 15 pontos de blindagem!\n");
+            }
             break;
     }
 }
