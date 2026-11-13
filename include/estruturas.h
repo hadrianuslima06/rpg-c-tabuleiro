@@ -32,6 +32,7 @@ typedef struct {
     int blindagem;
     int velocidadeProcessamento;
     int xp;
+    int missaoCumprida;
     ClasseRobo classe;
     Tipohabilidade habilidade; 
 } Personagem;
