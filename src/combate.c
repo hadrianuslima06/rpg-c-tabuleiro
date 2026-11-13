@@ -14,24 +14,54 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     int dado = rand() % 3;
     if (dado == 1){
         inimigo.cargaAtual = 30 * faseAtual;
-        strcpy(inimigo.nome, "Drone defeituoso");
         inimigo.poderAtaque = 10 + (2 * faseAtual);
         inimigo.blindagem = 3 + faseAtual;
         inimigo.xpLiberado = 10 * faseAtual;
+        switch(faseAtual){
+            case 1:
+                strcpy(inimigo.nome, "Drone defeituoso");
+                break;
+            case 2:
+                strcpy(inimigo.nome, "Soldador Corrompido");
+                break;
+            case 3:
+                strcpy(inimigo.nome, "Anomalia Quântica");
+                break;
+        }
     }
     else if(dado == 2){
         inimigo.cargaAtual = 40 * faseAtual;
-        strcpy(inimigo.nome, "Guarda cibernético");
         inimigo.poderAtaque = 13 + (3 * faseAtual);
         inimigo.blindagem = 3 + (2 * faseAtual);
         inimigo.xpLiberado = 20 * faseAtual;
+        switch(faseAtual){
+            case 1:
+                strcpy(inimigo.nome, "Guarda cibernético");
+                break;
+            case 2:
+                strcpy(inimigo.nome, "Operário Cibernético");
+                break;
+            case 3:
+                strcpy(inimigo.nome, "Inquisidor do Sistema");
+                break;
+        }
     }
     else{
         inimigo.cargaAtual = 45 * faseAtual;
-        strcpy(inimigo.nome, "Sentinela de elite");
         inimigo.poderAtaque = 15 + (3.5 * faseAtual);
         inimigo.blindagem = 3 + (3 * faseAtual);
         inimigo.xpLiberado = 25 * faseAtual;
+        switch(faseAtual){
+            case 1:
+                strcpy(inimigo.nome, "Sentinela de elite");
+                break;
+            case 2:
+                strcpy(inimigo.nome, "Vigia do Subsolo");
+                break;
+            case 3:
+                strcpy(inimigo.nome, "Avatar da Corrupção");
+                break;
+        }
     }
     printf("INIMIGO: %s\n", inimigo.nome);
 
