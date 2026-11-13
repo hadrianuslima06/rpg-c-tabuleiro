@@ -42,7 +42,7 @@ int main(){
             
             do {
                 printf("Opcao: ");
-                scanf("%d", &opcao);
+                opcao = lerOpcaoSegura();
                 switch (opcao){
                     case 1:
                         dado = jogarDado(6);

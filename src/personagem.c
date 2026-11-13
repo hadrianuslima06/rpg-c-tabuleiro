@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "personagem.h"
+#include "terminal.h"
 
 void criarPersonagem(Personagem *p){
     int escolha = 0;
@@ -19,7 +20,7 @@ void criarPersonagem(Personagem *p){
     
     do{
         printf("Opcao: ");
-        scanf("%d", &escolha);
+        escolha = lerOpcaoSegura();
         switch(escolha) {
             case VANGUARDA:
                 p->classe = VANGUARDA;
