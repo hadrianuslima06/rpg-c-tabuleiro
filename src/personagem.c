@@ -15,6 +15,7 @@ void criarPersonagem(Personagem *p){
     printf("3 - Artilheiro (Foco em Poder de Fogo)\n");
     
     p->xp = 0;
+    p->missaoCumprida = 0;
     
     do{
         printf("Opcao: ");
@@ -54,7 +55,7 @@ void criarPersonagem(Personagem *p){
                 printf("Opcao invalida! Você precisa selecionar um Herói.\n");
                 break;
         }
-    } while (escolha > 3 || escolha < 1);
+    } while (escolha != 1 && escolha != 2 && escolha != 3);
 }
 
 void verificarCargaMax(Personagem *j){
