@@ -18,8 +18,9 @@ typedef enum {
     CASA_COMBATE,
     CASA_RECARGA,
     CASA_VIRUS,
-    CASA_MISSAO,
-    CASA_RECOMPENSA
+    CASA_CHEFAO,
+    CASA_RECOMPENSA,
+    CASA_OBJETIVO
 } Tipocasa;
 
 typedef struct {
