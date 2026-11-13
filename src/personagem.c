@@ -22,6 +22,7 @@ void criarPersonagem(Personagem *p){
         switch(escolha) {
             case VANGUARDA:
                 p->classe = VANGUARDA;
+                strcpy(p->acessorio, "Armadura de Titânio");
                 p->cargaMaxima = 150;
                 p->cargaAtual = 150;
                 p->poderAtaque = 10;
@@ -31,6 +32,7 @@ void criarPersonagem(Personagem *p){
                 break;
             case INFILTRADOR:
                 p->classe = INFILTRADOR;
+                strcpy(p->acessorio, "Processador 100GHz");
                 p->cargaMaxima = 100;
                 p->cargaAtual = 100;
                 p->poderAtaque = 12;
@@ -40,6 +42,7 @@ void criarPersonagem(Personagem *p){
                 break;
             case ARTILHEIRO:
                 p->classe = ARTILHEIRO;
+                strcpy(p->acessorio, "Arma de plasma");
                 p->cargaMaxima = 90;
                 p->cargaAtual = 90;
                 p->poderAtaque = 20;
