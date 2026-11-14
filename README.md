@@ -112,8 +112,8 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 ```
 
 ### Principais Estruturas e Ponteiros
-* **`Personagem` e `Monstro` (`estruturas.h`):** Modelam as entidades do jogo utilizando enumerações (`ClasseRobo`, `Tipohabilidade`, `Tipocasa`) para facilitar na leitura do código.
-* **Manipulação por Referência:** Todas as modificações de estado, como dano em batalha (`iniciarCombate`), evolução (`verificarXpMax`), recargas/armadilhas (`executarEvento`) e deslocamento no mapa (`moverJogador`), são realizadas via ponteiros (`Personagem *`, `int *`), alterando os dados diretamente na memória.
+* **`Personagem` e `Monstro` (`estruturas.h`):** Modelam as entidades do jogo utilizando enumerações (`ClasseRobo`, `Tipohabilidade`, `Tipocasa`, `Tipoacao`) para eliminar números mágicos e facilitar na leitura do código.
+* **Manipulação por Referência:** Todas as modificações de estado — como dano em batalha (`infringirDano`, `receberDano`), bônus aleatório (`aplicarBonusAleatorio`), evolução (`verificarXpMax`), recargas/armadilhas (`executarEvento`) e deslocamento no mapa (`moverJogador`) — são realizadas via ponteiros (`Personagem *`, `Monstro *`, `int *`), alterando os dados diretamente na memória.
 
 ---
 
