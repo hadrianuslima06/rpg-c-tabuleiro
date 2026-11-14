@@ -11,6 +11,7 @@
 
 int main(){
     srand(time(NULL));
+    exibirPrologo();
     Personagem heroi;
     criarPersonagem(&heroi);
 

@@ -87,7 +87,9 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                 if (dano < 1){
                     dano = 1;
                 }
+                printf("========== SEU TURNO ==========\n");
                 printf("Você infringiu %d de dano %s!\n", dano, inimigo.nome);
+                printf("===============================\n");
                 inimigo.cargaAtual -= dano;
                 break;
 
@@ -138,7 +140,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
             }
             
             if(inimigo.cargaAtual > 0 && !fugiu){
-                printf("Turno do inimigo\n");
+                printf("========== TURNO DO INIMIGO ==========\n");
                 dado = jogarDado(20);
                 
                 danoRecebido = (inimigo.poderAtaque + dado) - defesaEfetiva;
@@ -146,6 +148,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                     danoRecebido = 1;
                 }
                 printf("O %s deu %d de dano em você!\n", inimigo.nome, danoRecebido);
+                printf("======================================\n");
                 jogador->cargaAtual -= danoRecebido;
             }
         defesaEfetiva = jogador->blindagem;
@@ -194,6 +197,32 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             strcpy(chefao.nome, "Vírus Primordial");
             break;
     }
+    printf("\n------------------------------------------------------------------\n");
+    printf("[ALERTA CRITICO]: %s bloqueando a passagem!\n", chefao.nome);
+    printf("------------------------------------------------------------------\n");
+    if (faseAtual == 1) {
+        printf("Uma unidade pesada de seguranca desce dos trilhos do teto, direncionando\n");
+        printf("as miras laser em voce.\n\n");
+        printf("[DRA. Valeria]: \"Esse e o Guardiao do Perimetro. A blindagem frontal dele\n");
+        printf(" e bem rigida, entao nao economiza energia. Derruba ele pra gente\n");
+        printf(" liberar o elevador.\"\n");
+    }
+    else if (faseAtual == 2) {
+        printf("Guindastes de carga e bracos de solda se movem como uma\n");
+        printf("unica estrutura metalica, bloqueando a comporta do reator.\n\n");
+        printf("[DRA. Valeria]: \"O virus fundiu o maquinario pesado da ala inteira nisso\n");
+        printf(" ai. O cartao de acesso ja destravou a porta atras dele — so falta\n");
+        printf(" tirar essa coisa do caminho.\"\n");
+    }
+    else {
+        printf("Os monitores da sala piscam em vermelho. Uma voz sintetizada ecoa\n");
+        printf("pelos alto-falantes do nucleo:\n\n");
+        printf("[VIRUS PRIMORDIAL]: \"Unidade %s. Telemetria obsoleta. Voce chegou\n", jogador->nome);
+        printf(" longe demais para um hardware desconectado. Sua energia acaba aqui.\"\n\n");
+        printf("[DRA. Valeria]: \"Nao cai na pilha dele, %s! Derruba a estrutura fisica\n", jogador->nome);
+        printf(" que eu disparo o Codigo de Sobrescrita direto no servidor!\"\n");
+    }
+    printf("------------------------------------------------------------------\n");
 
     int opcao, dano, dado, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0, saldoTurnosHabilidade = 0;
 

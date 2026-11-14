@@ -8,8 +8,9 @@ void criarPersonagem(Personagem *p){
 
     printf("Identificador da unidade: ");
     scanf("%s", p->nome);
+    limpar_terminal();
 
-    printf("\n[DRA. Helena]: \"Certo, %s. Liberei a fechadura manual. Antes de sair no\n", p->nome);
+    printf("\n[DRA. Valeria]: \"Certo, %s. Liberei a fechadura manual. Antes de sair no\n", p->nome);
     printf(" corredor, da uma olhada na bancada de equipamentos ai do lado.\n");
     printf(" Os drones de patrulha ja estao hostis, entao escolhe o que\n");
     printf(" fizer mais sentido pra voce:\"\n\n");
@@ -35,7 +36,7 @@ void criarPersonagem(Personagem *p){
                 p->blindagem = 15;
                 p->velocidadeProcessamento = 5;
                 p->habilidade = PROTECAO_DANO;
-                printf("[DRA. Helena]: \nBoa escolha! Com essa armadura voce vai conseguir\n");
+                printf("[DRA. Valeria]: \nBoa escolha! Com essa armadura voce vai conseguir\n");
                 printf("segurar bem quando as coisas apertarem. Vai com cuidado.\n");
                 break;
             case INFILTRADOR:
@@ -47,7 +48,7 @@ void criarPersonagem(Personagem *p){
                 p->blindagem = 8;
                 p->velocidadeProcessamento = 18;
                 p->habilidade = ROUBO_CARGA;
-                printf("[DRA. Helena]: \nQue escolha! Sua defesa não é tão boa mas com esse\n");
+                printf("[DRA. Valeria]: \nQue escolha! Sua defesa não é tão boa mas com esse\n");
                 printf("processador vai conseguir arrancar muita carga dos seus oponentes.\n");
                 break;
             case ARTILHEIRO:
@@ -59,7 +60,7 @@ void criarPersonagem(Personagem *p){
                 p->blindagem = 5;
                 p->velocidadeProcessamento = 10;
                 p->habilidade = MAIOR_DANO;
-                printf("[DRA. Helena]: \nOtima ideia! Vai conseguir derrubar eles fácil,\n");
+                printf("[DRA. Valeria]: \nOtima ideia! Vai conseguir derrubar eles fácil,\n");
                 printf("so toma cuidado com sua carga, ela pode ficar muito exposta.\n");
                 break;
             default:
