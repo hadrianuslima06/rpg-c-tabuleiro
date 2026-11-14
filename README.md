@@ -1,5 +1,3 @@
-# rpg-c-tabuleiro
-Protótipo de um jogo de tabuleiro RPG via terminal escrito em liguagem C. Trabalho prático da disciplina de Programação.
 # Protocolo Lázaro: Setor Alfa
 
 **Aluno:** Hadrianus da Silva Lima 
@@ -82,6 +80,7 @@ O mapa é representado por um vetor linear de **20 casas** (índices `0` a `19`)
    $$\text{Dano ao Jogador} = \max(1, (\text{d20} + \text{Ataque do Inimigo}) - \text{Defesa Efetiva})$$
 
 ### Evolução e Condições de Fim de Jogo
+* **Bônus Pós-Combate:** Ao derrotar qualquer inimigo, além do XP, o sistema analisa os dados da batalha e concede aleatoriamente um aprimoramento permanente (`+1 Poder de Ataque`, `+1 Blindagem`, `+1 Vel. de Processamento` ou `+5 Carga Máxima`).
 * **Subida de Nível:** A cada **40 XP** acumulados, a unidade evolui automaticamente, restaura 100% da bateria e ganha bônus fixos conforme a classe (Vanguarda: `+20 Carga Máx, +3 Blindagem, +1 Ataque`; Infiltrador: `+10 Carga Máx, +4 Processamento, +2 Ataque`; Artilheiro: `+5 Carga Máx, +5 Ataque, +1 Blindagem`).
 * **Vitória:** Concluir a missão da Fase 3 derrotando o Vírus Primordial.
 * **Derrota (Game Over):** A carga atual da bateria chegar a `0` ou menos em qualquer momento.
@@ -94,21 +93,21 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 
 ```text
 ├── include/
-│   ├── combate.h      # Protótipos de dados e combate por turnos
-│   ├── estruturas.h   # Definições de enums (ClasseRobo, Tipohabilidade, Tipocasa) e structs (Personagem, Monstro)
+│   ├── combate.h      # Protótipos de dados, dano e combate por turnos
+│   ├── estruturas.h   # Definições de enums (ClasseRobo, Tipohabilidade, Tipocasa, Tipoacao) e structs (Personagem, Monstro)
 │   ├── mapa.h         # Protótipos do tabuleiro, eventos, narrativa e fluxo de fases
-│   ├── personagem.h   # Protótipos de criação, status e progressão de XP e Carga
-│   └── terminal.h     # Protótipos de controle de tela, pausa, prólogo e leitura segura de
-|                        dados
+│   ├── personagem.h   # Protótipos de criação, status, bônus e progressão de XP/Carga
+│   └── terminal.h     # Protótipos de controle de tela, limpeza de buffer, pausa e leitura segura
 ├── src/
-│   ├── combate.c      # Lógica de combates comuns e contra chefes
+│   ├── combate.c      # Lógica de combates comuns, chefes e aplicação de dano por ponteiro
 │   ├── main.c         # Fluxo principal do ciclo de fases
 │   ├── mapa.c         # Inicialização/exibição do vetor mapa, eventos e diálogos
-│   ├── personagem.c   # Inicialização de atributos e atualização por ponteiros
+│   ├── personagem.c   # Inicialização de atributos, bônus aleatório e evolução por ponteiros
 │   └── terminal.c     # Limpeza de buffer e utilitários de terminal
-├── images/            # Artes conceituais dos personagens e chefes
-├── video/             # Referência ao vídeo de demonstração
-├── Makefile           # Automação de compilação
+├── images/            # Artes conceituais dos personagens e monstros (opcional)
+├── video/
+│   └── link_video.md  # Link para o vídeo de demonstração no YouTube/Drive
+├── Makefile           # Automação de compilação (-std=c99)
 └── README.md          # Documentação do projeto
 ```
 
@@ -128,7 +127,7 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 1. Clone o repositório e acesse a pasta do projeto:
    ```bash
    git clone https://github.com/hadrianuslima06/rpg-c-tabuleiro.git
-   cd JOGO RPG
+   cd rpg-c-tabuleiro
    ```
 2. Compile utilizando o `Makefile`:
    ```bash
