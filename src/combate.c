@@ -68,7 +68,6 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     int opcao, dano, danoRecebido, defesaEfetiva = jogador->blindagem, fugiu = 0, saldoTurnosHabilidade = 0;
 
     do{
-        pausar();
         limpar_terminal();
         printf("\nSEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
         printf("HP DO INIMIGO: %d\n", inimigo.cargaAtual);
@@ -99,7 +98,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                     printf("Você usou sua habilidade especial!\n");
                     if (jogador->habilidade == ROUBO_CARGA){
                         dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
-                        inimigo.cargaAtual -= dano;
+                        infringirDano(&inimigo, &dano);
                         jogador->cargaAtual += dano;
                         verificarCargaMax(jogador);
                         printf("Você roubou %d de carga do inimigo!\n", dano);
@@ -109,8 +108,11 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                         printf("Sua blindagem aumentou em 80%%!\n");
                     }
                     else{
-                        inimigo.cargaAtual -=(int) ((jogador->poderAtaque)*1.50);
+                        dano = (int) ((jogador->poderAtaque)*1.50);
+                        infringirDano(&inimigo, &dano);
                         printf("Seu dano aumentou em 50%%!\n");
+                        printf("Voce deu %d de dano na bateria do inimigo!\n", dano);
+
                     }
                     saldoTurnosHabilidade = 5;
                     
@@ -146,6 +148,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
         }
         defesaEfetiva = jogador->blindagem;
         saldoTurnosHabilidade--;
+        pausar();
 
     } while(jogador->cargaAtual > 0 && inimigo.cargaAtual > 0 && !fugiu);
 
@@ -218,10 +221,10 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
     }
     printf("------------------------------------------------------------------\n");
 
+    pausar();
     int opcao, dano, dado, danoRecebido, defesaEfetiva = jogador->blindagem, saldoTurnosHabilidade = 0;
 
     do{
-        pausar();
         limpar_terminal();
         printf("\nSEU HP: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
         printf("HP DO INIMIGO: %d\n", chefao.cargaAtual);
@@ -261,8 +264,10 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                         printf("Sua blindagem aumentou em 80%%!\n");
                     }
                     else{
-                        chefao.cargaAtual -=(int) ((jogador->poderAtaque)*1.50);
+                        dano = (int) ((jogador->poderAtaque)*1.50);
+                        infringirDano(&chefao, &dano);
                         printf("Seu dano aumentou em 50%%!\n");
+                        printf("Voce deu %d de dano na bateria do inimigo!\n", dano);
                     }
                     saldoTurnosHabilidade = 3;
                 }
@@ -286,6 +291,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
         }
         saldoTurnosHabilidade--;
         defesaEfetiva = jogador->blindagem;
+        pausar();
 
     } while(jogador->cargaAtual > 0 && chefao.cargaAtual > 0);
 
