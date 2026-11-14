@@ -7,7 +7,7 @@ void criarPersonagem(Personagem *p){
     int escolha = 0;
 
     printf("Identificador da unidade: ");
-    scanf("%s", p->nome);
+    scanf(" %49[^\n]", p->nome);
     limpar_terminal();
 
     printf("\n[DRA. Valeria]: \"Certo, %s. Liberei a fechadura manual. Antes de sair no\n", p->nome);
@@ -16,11 +16,12 @@ void criarPersonagem(Personagem *p){
     printf(" fizer mais sentido pra voce:\"\n\n");
 
     printf("Selecione a classe do seu Android de combate\n");
-    printf("1 - Vanguarda (Foco em Blindagem)\n");
-    printf("2 - Infiltrador (Foco em Processamento e Agilidade)\n");
-    printf("3 - Artilheiro (Foco em Poder de Fogo)\n");
+    printf("1 - Vanguarda   (Carga: 150 | Ataque: 10 | Blindagem: 15 | Proc.: 5)\n");
+    printf("2 - Infiltrador (Carga: 100 | Ataque: 12 | Blindagem: 8  | Proc.: 18)\n");
+    printf("3 - Artilheiro  (Carga: 90  | Ataque: 20 | Blindagem: 5  | Proc.: 10)\n");
     
     p->xp = 0;
+    p->nivel = 1;
     p->missaoCumprida = 0;
     
     do{
@@ -99,6 +100,8 @@ void exibirStatusHeroi(Personagem *jogador){
 void verificarXpMax(Personagem *jogador){
     if(jogador->xp >= 40){
         jogador->xp -= 40;
+        jogador->nivel++;
+        printf("\n[SISTEMA ATUALIZADO]: Nivel %d alcancado!\n", jogador->nivel);
         switch(jogador->classe){
             case VANGUARDA:
                 jogador->cargaMaxima += 20;
@@ -134,5 +137,29 @@ int verificarCargaMin(Personagem *jogador){
     }
     else{
         return 0;
+    }
+}
+
+void aplicarBonusAleatorio(Personagem *jogador) {
+    int sorteio = rand() % 4;
+
+    printf("[OTIMIZACAO DE HARDWARE]: Dados de combate analisados!\n");
+    switch (sorteio) {
+        case 0:
+            jogador->poderAtaque += 1;
+            printf("Bonus aleatorio: +1 Poder de Ataque (Atual: %d)\n", jogador->poderAtaque);
+            break;
+        case 1:
+            jogador->blindagem += 1;
+            printf("Bonus aleatorio: +1 Blindagem (Atual: %d)\n", jogador->blindagem);
+            break;
+        case 2:
+            jogador->velocidadeProcessamento += 1;
+            printf("Bonus aleatorio: +1 Velocidade de Processamento (Atual: %d)\n", jogador->velocidadeProcessamento);
+            break;
+        default:
+            jogador->cargaMaxima += 5;
+            printf("Bonus aleatorio: +5 Carga Maxima de Bateria (Atual: %d)\n", jogador->cargaMaxima);
+            break;
     }
 }
