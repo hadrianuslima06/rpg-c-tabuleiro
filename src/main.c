@@ -14,6 +14,7 @@ int main(){
     exibirPrologo();
     Personagem heroi;
     criarPersonagem(&heroi);
+    pausar();
 
     Tipocasa mapa[TAMANHO_TABULEIRO];
     inicializarTabuleiro(mapa, TAMANHO_TABULEIRO);
@@ -26,6 +27,7 @@ int main(){
         pausar();
 
         jogarFase(&heroi, mapa, TAMANHO_TABULEIRO, faseAtual);
+        pausar();
         faseAtual++;
         if (faseAtual <= ultimaFase && !verificarCargaMin(&heroi)){
             printf("Avançando pra a fase %d!\n", faseAtual);

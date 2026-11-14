@@ -2,7 +2,11 @@
 #include <stdio.h>
 
 void limpar_terminal(){
-    system("clear");
+    #ifdef _WIN32
+    system("cls");
+    #else
+        system("clear");
+    #endif
 }
 void pausar(){
     printf("Clique em ENTER para continuar.\n");

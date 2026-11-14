@@ -23,6 +23,13 @@ typedef enum {
     CASA_OBJETIVO
 } Tipocasa;
 
+typedef enum{
+    ATACAR = 1,
+    DEFENDER,
+    HABILIDADE_ESPECIAL,
+    FUGIR
+} Tipoacao;
+
 typedef struct {
     char nome[50];
     char acessorio[50];

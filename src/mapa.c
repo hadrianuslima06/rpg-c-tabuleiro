@@ -56,7 +56,7 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
     printf("\n-----------------------------------\n");
 }
 
-void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
+void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
     int dado;
     switch(tipoCasa){
         case CASA_VAZIA:
@@ -98,12 +98,12 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
             break;
         case CASA_RECOMPENSA:
             printf("[Voce abriu um armario de manutencao selado!]\n");
-            int dado = jogarDado(3);
+            dado = jogarDado(3);
             if (dado == 1){
                 jogador->cargaMaxima += 10;
                 jogador->cargaAtual = jogador->cargaMaxima;
-                printf("Item encontrado: Celula de alta densidade (+10 Bateria Max e carga regarregada).\n");
-                printf("[DRA. Valeria]: \"Essa celula vai dar um folego boa pra sua bateria.\"\n");
+                printf("Item encontrado: Celula de alta densidade (+10 Bateria Max e carga recarregada).\n");
+                printf("[DRA. Valeria]: \"Essa celula vai dar um folego bom pra sua bateria.\"\n");
             }
             else if (dado == 2){
                 jogador->poderAtaque += 10;
@@ -120,12 +120,12 @@ void executarEvento(Personagem *jogador, int tipoCasa, int faseAtual){
             if (faseAtual == 2){
                 if(jogador->missaoCumprida == 0){
                     printf("[Credencial de nivel 2 encontrada.]\n");
-                    printf("[DRS. Valeria]: \"Boa! Voce achou o CARTAO DE ACESSO de um dos supervisores.\n");
+                    printf("[DRA. Valeria]: \"Boa! Voce achou o CARTAO DE ACESSO de um dos supervisores.\n");
                     printf(" Agora a comporta no fim do setor vai abrir.\"\n");
                     jogador->missaoCumprida = 1;
                 }
                 else{
-                    printf("[DRS. Valeria]: \"Voce ja coletou o CARTAO DE ACESSO.\n");
+                    printf("[DRA. Valeria]: \"Voce ja coletou o CARTAO DE ACESSO.\n");
                     printf(" Nao precisa parar ai novamente. Va ate o final do corredor.\"\n");
                 }
             }

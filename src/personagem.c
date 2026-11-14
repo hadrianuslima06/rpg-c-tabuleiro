@@ -64,7 +64,7 @@ void criarPersonagem(Personagem *p){
                 printf("so toma cuidado com sua carga, ela pode ficar muito exposta.\n");
                 break;
             default:
-                printf("Opcao invalida! Você precisa selecionar um Herói.\n");
+                printf("Opcao invalida! Você precisa selecionar um Android.\n");
                 break;
         }
     } while (escolha != 1 && escolha != 2 && escolha != 3);
@@ -78,10 +78,10 @@ void verificarCargaMax(Personagem *j){
 
 void exibirStatusHeroi(Personagem *jogador){
     char classe[50];
-    if (jogador->classe == 1){
+    if (jogador->classe == VANGUARDA){
         strcpy(classe, "VANGUARDA");
     }
-    else if(jogador->classe == 2){
+    else if(jogador->classe == INFILTRADOR){
         strcpy(classe, "INFILTRADOR");
     }
     else{
@@ -89,9 +89,11 @@ void exibirStatusHeroi(Personagem *jogador){
     }
     printf("\n------- STATUS DO HERÓI -------\n");
     printf("CLASSE: %s\n", classe);
-    printf("CARGA: %d\n", jogador->cargaAtual);
+    printf("CARGA: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
     printf("ATAQUE: %d\n", jogador->poderAtaque);
     printf("BLINDAGEM: %d\n", jogador->blindagem);
+    printf("ACESSORIO: %s\n", jogador->acessorio);
+    printf("PROCESSAMENTO: %d\n", jogador->velocidadeProcessamento);
 }
 
 void verificarXpMax(Personagem *jogador){
