@@ -175,3 +175,60 @@ void exibirMensagemFinal(Personagem jogador){
         printf("======================================================\n\n");
     }
 }
+
+void moverJogador(Personagem *jogador, int *posicaoAtual, Tipocasa tabuleiro[], int tamanho, int faseAtual){
+    int dado = jogarDado(6);
+    printf("O dado parou no número %d!\n", dado);
+    *posicaoAtual += dado;
+
+    if(*posicaoAtual >= tamanho){
+        *posicaoAtual = tamanho - 1;
+    }
+
+    if(tabuleiro[*posicaoAtual] == CASA_CHEFAO){
+        if (faseAtual >= 2 && jogador->missaoCumprida == 0) {
+            printf("\nACESSO NEGADO! Faltam credenciais!\n");
+            printf("Você precisa encontrar o item na casa [ ? ] antes do chefe.\n");
+            printf("Teletransportando para o início do setor...\n");
+            *posicaoAtual = 0;
+        } 
+        else {
+            executarEvento(jogador, tabuleiro[*posicaoAtual], faseAtual);
+        }
+
+    }
+    else{
+        executarEvento(jogador,tabuleiro[*posicaoAtual], faseAtual);
+    }
+}
+
+void jogarFase(Personagem *jogador, Tipocasa tabuleiro[], int tamanho, int faseAtual){
+    int posicaoAtual = 0;
+    int opcao = 0;
+    jogador->missaoCumprida = 0;
+
+    while (jogador->missaoCumprida != 2 && !verificarCargaMin(jogador)){
+        exibirTabuleiro(tamanho, posicaoAtual, tabuleiro);
+
+        printf("Bateria: %d/%d | Posicao: %d\n", jogador->cargaAtual, jogador->cargaMaxima, posicaoAtual);
+        printf("1 - Rolar Dado de Movimento\n");
+        printf("2 - Ver Status do Androide\n");
+        
+        do {
+            printf("Opcao: ");
+            opcao = lerOpcaoSegura();
+            switch (opcao){
+                case 1:
+                    moverJogador(jogador, &posicaoAtual, tabuleiro, tamanho, faseAtual);
+                    break;
+                case 2:
+                    exibirStatusHeroi(jogador);
+                    break;
+                default:
+                    printf("Opção inválida!\n");
+                    break;
+    
+            }
+        } while(opcao > 2 || opcao < 1);
+    }
+}
