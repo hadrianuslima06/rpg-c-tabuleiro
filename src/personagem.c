@@ -2,12 +2,14 @@
 #include <string.h>
 #include "personagem.h"
 #include "terminal.h"
+#include "combate.h"
 
 void criarPersonagem(Personagem *p){
     int escolha = 0;
 
     printf("Identificador da unidade: ");
     scanf(" %49[^\n]", p->nome);
+    limparBuffer();
     limpar_terminal();
 
     printf("\n[DRA. Valeria]: \"Certo, %s. Liberei a fechadura manual. Antes de sair no\n", p->nome);
@@ -141,19 +143,19 @@ int verificarCargaMin(Personagem *jogador){
 }
 
 void aplicarBonusAleatorio(Personagem *jogador) {
-    int sorteio = rand() % 4;
+    int sorteio = jogarDado(4);
 
     printf("[OTIMIZACAO DE HARDWARE]: Dados de combate analisados!\n");
     switch (sorteio) {
-        case 0:
+        case 1:
             jogador->poderAtaque += 1;
             printf("Bonus aleatorio: +1 Poder de Ataque (Atual: %d)\n", jogador->poderAtaque);
             break;
-        case 1:
+        case 2:
             jogador->blindagem += 1;
             printf("Bonus aleatorio: +1 Blindagem (Atual: %d)\n", jogador->blindagem);
             break;
-        case 2:
+        case 3:
             jogador->velocidadeProcessamento += 1;
             printf("Bonus aleatorio: +1 Velocidade de Processamento (Atual: %d)\n", jogador->velocidadeProcessamento);
             break;
