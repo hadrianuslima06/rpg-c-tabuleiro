@@ -158,6 +158,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     else{
         printf("AMEAÇA ELIMINADA! Como recompensa você ganhou %dxp.\n", inimigo.xpLiberado);
         jogador->xp += inimigo.xpLiberado;
+        aplicarBonusAleatorio(jogador);
         verificarXpMax(jogador);
     }
     
