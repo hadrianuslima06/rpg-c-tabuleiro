@@ -77,7 +77,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
         printf("3 - Usar habilidade especial\n");
         printf("4 - Fugir\n");
         printf("Escolha uma ação: ");
-        scanf("%d", &opcao);
+        opcao = lerOpcaoSegura();
 
         switch(opcao){
             case 1:
@@ -206,7 +206,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
         printf("2 - Defender\n");
         printf("3 - Usar habilidade especial\n");
         printf("Escolha uma ação: ");
-        scanf("%d", &opcao);
+        opcao = lerOpcaoSegura();
 
         switch(opcao){
             case 1:
