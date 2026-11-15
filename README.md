@@ -81,8 +81,8 @@ O mapa é representado por um vetor linear de **20 casas** (índices `0` a `19`)
 2. **Defender:** Aumenta a blindagem efetiva em **20%** (`Blindagem * 1.20`) contra o contra-ataque do inimigo.
 3. **Habilidade Especial:** Ativa o poder exclusivo da classe. Possui tempo de recarga de **5 turnos** em combates comuns e **3 turnos** contra chefes.
 4. **Fugir:** Disponível apenas contra inimigos comuns. Rola um **d6**; se o resultado for maior que `3` (50% de chance), o jogador recua sem receber XP.
-5. **Turno do Inimigo:** Se sobreviver, o inimigo rola um **d20** e ataca:
-   $$\text{Dano ao Jogador} = \max(1, (\text{d20} + \text{Ataque do Inimigo}) - \text{Defesa Efetiva})$$
+5. **Turno do Inimigo:** Se sobreviver, o inimigo rola um **d20** e ataca (garantindo perfuração mínima de 25% do seu ataque base):
+   $$\text{Dano ao Jogador} = \max(\text{Ataque do Inimigo} / 4, (\text{d20} + \text{Ataque do Inimigo}) - \text{Defesa Efetiva})$$
 
 ### Evolução e Condições de Fim de Jogo
 * **Bônus Pós-Combate:** Ao derrotar qualquer inimigo, além do XP, o sistema analisa os dados da batalha e concede aleatoriamente um aprimoramento permanente (`+1 Poder de Ataque`, `+1 Blindagem`, `+1 Vel. de Processamento` ou `+5 Carga Máxima`).
