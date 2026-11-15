@@ -25,6 +25,11 @@ Ao iniciar o sistema, o jogador escolhe uma entre três configurações de comba
 | **Infiltrador** | Processador 100GHz | 100 | 12 | 8 | 18 | **Roubo de Carga:** Causa dano igual a `Ataque + Processamento` e recupera esse valor em bateria. |
 | **Artilheiro** | Arma de Plasma | 90 | 20 | 5 | 10 | **Maior Dano:** Disparo crítico que causa `1.5x` o Poder de Ataque diretamente na carga do inimigo. |
 
+### Galeria das Unidades
+| Vanguarda | Infiltrador | Artilheiro |
+| :---: | :---: | :---: |
+| ![Vanguarda](images/personagens/VANGUARDA.png) | ![Infiltrador](images/personagens/INFILTRADOR.png) | ![Artilheiro](images/personagens/ARTILHEIRO.png) |
+
 ---
 
 ## 🗺️ Fases, Missões e Inimigos
@@ -34,7 +39,7 @@ O jogo é dividido em **3 fases** com dificuldade aumentada ao decorrer da progr
 ### Galeria dos Chefes de Setor
 | Guardião do Perímetro (Fase 1) | Amálgama Cibernético (Fase 2) | Vírus Primordial (Fase 3) |
 | :---: | :---: | :---: |
-| ![Guardião do Perímetro](images/monstros/GUARDIAO_DO_PERIMETRO.png) | ![Amálgama Cibernético](images/monstros/AMALGAMA_CIBERNETICO.png) | ![Vírus Primordial](images/monstros/VIRUS_PRIRMODIAL.png) |
+| ![Guardião do Perímetro](images/monstros/GUARDIAO_DO_PERIMETRO.png) | ![Amálgama Cibernético](images/monstros/AMALGAMA_CIBERNETICO.png) | ![Vírus Primordial](images/monstros/VIRUS_PRIMORDIAL.png) |
 
 ### Fase 1 — Perímetro Externo
 * **Missão:** Atravessar o pátio externo e derrotar o Guardião do Perímetro para liberar o elevador de carga (trava mecânica, não exige nenhum item especial).
@@ -109,15 +114,15 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 │   ├── mapa.c         # Inicialização/exibição do vetor mapa, eventos e diálogos
 │   ├── personagem.c   # Inicialização de atributos, bônus aleatório e evolução por ponteiros
 │   └── terminal.c     # Limpeza de buffer e utilitários de terminal
-images/
-├── personagens/
-│   ├── VANGUARDA.png
-│   ├── INFILTRADOR.png
-│   └── ARTILHEIRO.png
-└── chefões/
-    ├── GUARDIAO_DO_PERIMETRO.png
-    ├── AMALGAMA_CIBERNETICO.png
-    └── VIRUS_PRIMORDIAL.png          # Artes conceituais dos personagens e monstros
+├── images/
+│   ├── personagens/
+│   │   ├── VANGUARDA.png
+│   │   ├── INFILTRADOR.png
+│   │   └── ARTILHEIRO.png
+│   └── monstros/
+│       ├── GUARDIAO_DO_PERIMETRO.png
+│       ├── AMALGAMA_CIBERNETICO.png
+│       └── VIRUS_PRIMORDIAL.png       # Artes conceituais dos personagens e monstros
 ├── video/
 │   └── link_video.md  # Link para o vídeo de demonstração no YouTube/Drive
 ├── Makefile           # Automação de compilação (-std=c99)
