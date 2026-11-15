@@ -34,7 +34,7 @@ O jogo é dividido em **3 fases** com dificuldade aumentada ao decorrer da progr
 ### Galeria dos Chefes de Setor
 | Guardião do Perímetro (Fase 1) | Amálgama Cibernético (Fase 2) | Vírus Primordial (Fase 3) |
 | :---: | :---: | :---: |
-| ![Guardião do Perímetro](images/monstros/guardiao.png) | ![Amálgama Cibernético](images/monstros/amalgama.png) | ![Vírus Primordial](images/monstros/virus_primordial.png) |
+| ![Guardião do Perímetro](images/monstros/GUARDIAO_DO_PERIMETRO.png) | ![Amálgama Cibernético](images/monstros/AMALGAMA_CIBERNETICO.png) | ![Vírus Primordial](images/monstros/VIRUS_PRIRMODIAL.png) |
 
 ### Fase 1 — Perímetro Externo
 * **Missão:** Atravessar o pátio externo e derrotar o Guardião do Perímetro para liberar o elevador de carga (trava mecânica, não exige nenhum item especial).
