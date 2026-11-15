@@ -3,6 +3,7 @@
 #include "combate.h"
 #include "terminal.h"
 
+// Função para gerar o tabuleiro e suas casa a partir de um laço for
 void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho){
     for (int i = 0; i < tamanho; i++){
         tabuleiro[i] = CASA_VAZIA;
@@ -22,6 +23,7 @@ void inicializarTabuleiro(Tipocasa tabuleiro[], int tamanho){
     tabuleiro[tamanho-1] = CASA_CHEFAO;
 }
 
+// função criada para exibir o tabuleiro a cada rodada
 void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
     for(int i = 0; i < tamanho; i++){
         if (i == posicaoHeroi){
@@ -56,6 +58,7 @@ void exibirTabuleiro(int tamanho, int posicaoHeroi, Tipocasa tabuleiro[]){
     printf("\n-----------------------------------\n");
 }
 
+// essa funçao executa a ação do personagem de acordo com sua casa atual no tabuleiro
 void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
     int dado;
     switch(tipoCasa){
@@ -72,6 +75,7 @@ void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
             }
             break;
         case CASA_RECARGA:
+            // atribui vida extra ao chegar nessa casa
             jogador->cargaAtual += 20;
             verificarCargaMax(jogador);
             
@@ -80,6 +84,7 @@ void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
             printf("CARGA ATUAL: %d/%d\n", jogador->cargaAtual, jogador->cargaMaxima);
             break;
         case CASA_VIRUS:
+            // remove vida ao chegar nessa casa
             jogador->cargaAtual -= 15;
             printf("[ALERTA]: Pulso de interferencia do virus atingiu seus circuitos! -15 de carga.\n");
             printf("[DRA. Valeria]: \"Sua telemetria caiu aqui no meu monitor! Toma cuidado onde pisa.\"\n");
@@ -87,6 +92,7 @@ void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
             break;
         case CASA_COMBATE:
             printf("[DRA. Valeria]: \"Tem maquina corrompida na sua frente. Prepara pra combater!\"\n");
+            // aqui é onde acontece o combate com mostros que estão no tabuleiro
             iniciarCombate(jogador, faseAtual);
             break;
         case CASA_CHEFAO:
@@ -97,6 +103,7 @@ void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
             }
             break;
         case CASA_RECOMPENSA:
+            // essa casa da um atributo aleatorio para o android
             printf("[Voce abriu um armario de manutencao selado!]\n");
             dado = jogarDado(3);
             if (dado == 1){
@@ -117,6 +124,8 @@ void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
             }
             break;
         case CASA_OBJETIVO:
+            // nessa casa o jogador consegue achar um item necessario para prosseguir de fase
+            // (exeto na fase 1)
             if (faseAtual == 2){
                 if(jogador->missaoCumprida == 0){
                     printf("[Credencial de nivel 2 encontrada.]\n");
@@ -144,6 +153,7 @@ void executarEvento(Personagem *jogador, Tipocasa tipoCasa, int faseAtual){
     }
 }
 
+// função dedicada apenas para exibir uma pequena historia de cada fase
 void exibirHistoriaFase(int fase){
     limpar_terminal();
     printf("======================================================\n");
@@ -190,6 +200,7 @@ void exibirHistoriaFase(int fase){
     printf("======================================================\n");
 }
 
+// função para exibir mensagem de vitoria ou derrota
 void exibirMensagemFinal(Personagem jogador){
     if (!verificarCargaMin(&jogador)){
         printf("\n==================================================================\n");
@@ -219,15 +230,20 @@ void exibirMensagemFinal(Personagem jogador){
     }
 }
 
+// essa função move o jogador pelo tabuleiro
 void moverJogador(Personagem *jogador, int *posicaoAtual, Tipocasa tabuleiro[], int tamanho, int faseAtual){
     int dado = jogarDado(6);
     printf("O dado parou no número %d!\n", dado);
     *posicaoAtual += dado;
+    // muda a posição atual por ponteiro
 
     if(*posicaoAtual >= tamanho){
         *posicaoAtual = tamanho - 1;
     }
+    // verifica se ele não ultrapassou o limite do tabuleiro
 
+    // aqui faz a verificação de o jogador coletou o item obrigatorio para prosseguir
+    // senão, o jogador é teletransportado de volta pro inicio da fase
     if(tabuleiro[*posicaoAtual] == CASA_CHEFAO){
         if (faseAtual >= 2 && jogador->missaoCumprida == 0) {
             printf("\n[PORTA TRANCADA]: Acesso negado. Credencial obrigatoria ausente.\n");
@@ -246,11 +262,13 @@ void moverJogador(Personagem *jogador, int *posicaoAtual, Tipocasa tabuleiro[], 
     }
 }
 
+// nessa função o jogador anda pelo tabuleiro e interage de acordo com a fase
 void jogarFase(Personagem *jogador, Tipocasa tabuleiro[], int tamanho, int faseAtual){
     int posicaoAtual = 0;
     int opcao = 0;
     jogador->missaoCumprida = 0;
 
+    // enquanto ele não cumprir a fase e não morrer, ele joga a fase
     while (jogador->missaoCumprida != 2 && !verificarCargaMin(jogador)){
         exibirTabuleiro(tamanho, posicaoAtual, tabuleiro);
 

@@ -4,10 +4,12 @@
 #include "terminal.h"
 #include "combate.h"
 
+// Essa função cria o personagem por meio de ponteiro, atribuindo informações de acordo
+// com a escolha do jogador
 void criarPersonagem(Personagem *p){
     int escolha = 0;
-
     printf("Identificador da unidade: ");
+    // Aqui permite que o usuario informe um nome com espaços
     scanf(" %49[^\n]", p->nome);
     limparBuffer();
     limpar_terminal();
@@ -73,12 +75,16 @@ void criarPersonagem(Personagem *p){
     } while (escolha != 1 && escolha != 2 && escolha != 3);
 }
 
+// Essa função verifica se o android atingiu sua carga maxima, garantindo que a carga atual
+// não ultrapasse o limite de carga maxima.
 void verificarCargaMax(Personagem *j){
     if (j->cargaAtual > j->cargaMaxima){
         j->cargaAtual = j->cargaMaxima;
     }
 }
 
+// Essa função tem o simples objetivo de mostrar na tela algumas informações do android
+// quando solicitado
 void exibirStatusHeroi(Personagem *jogador){
     char classe[50];
     if (jogador->classe == VANGUARDA){
@@ -99,6 +105,9 @@ void exibirStatusHeroi(Personagem *jogador){
     printf("PROCESSAMENTO: %d\n", jogador->velocidadeProcessamento);
 }
 
+// Essa função tem o objetivo de verificar o xp do android, caso ele atinga a capacidade maxima,
+// ele evolui de nivel, e ao final a função de chamada novamente para verificar se pode ser
+// upado novamente (usei a ideia de recursividade)
 void verificarXpMax(Personagem *jogador){
     if(jogador->xp >= 40){
         jogador->xp -= 40;
@@ -133,6 +142,8 @@ void verificarXpMax(Personagem *jogador){
     }
 }
 
+// Nessa função utilizei a logica de verificar se o android morreu, retornando 1 caso
+// sua carga tenha atingido 0, ou 0 se ainda estiver vivo
 int verificarCargaMin(Personagem *jogador){
     if (jogador->cargaAtual <= 0){
         return 1;
@@ -142,6 +153,7 @@ int verificarCargaMin(Personagem *jogador){
     }
 }
 
+// Criei essa função para aplicar um bonus aleatorio ao android ao eliminar um mostro
 void aplicarBonusAleatorio(Personagem *jogador) {
     int sorteio = jogarDado(4);
 

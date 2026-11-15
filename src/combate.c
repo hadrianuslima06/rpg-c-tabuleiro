@@ -5,12 +5,15 @@
 #include "personagem.h"
 #include "terminal.h"
 
+// função para jogar o dado a partir da quantidade de lados informados
 int jogarDado(int lados){
     return (rand() % lados) + 1;
 }
 
+// aqui acontece a logica de combate com o monstro
 void iniciarCombate(Personagem *jogador, int faseAtual){
     Monstro inimigo;
+    // sorteio do monstro de acordo com a fase
     int dado = rand() % 3;
     if (dado == 1){
         inimigo.cargaAtual = 30 * faseAtual;
@@ -81,6 +84,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
         switch(opcao){
             case ATACAR:
                 dado = jogarDado(20);
+                // aqui é calculado o dano a partir do numero jogado no dado
                 dano = (dado + jogador->poderAtaque) - inimigo.blindagem;
                 infringirDano(&inimigo, &dano);
                 printf("========== SEU TURNO ==========\n");
@@ -89,13 +93,16 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                 break;
 
             case DEFENDER:
+                // aumenta a defesa em 20%
                 defesaEfetiva = (int)(jogador->blindagem * 1.20);
                 printf("Você ativou o modo defesa!\n");
                 break;
 
             case HABILIDADE_ESPECIAL:
+                // verifica se o jogador pode usar a habilidade
                 if (saldoTurnosHabilidade <= 0){
                     printf("Você usou sua habilidade especial!\n");
+                    // aplica a habilidade especial de acordo com o android escolhido
                     if (jogador->habilidade == ROUBO_CARGA){
                         dano = jogador->poderAtaque + jogador->velocidadeProcessamento;
                         infringirDano(&inimigo, &dano);
@@ -114,6 +121,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                         printf("Voce deu %d de dano na bateria do inimigo!\n", dano);
 
                     }
+                    // ao usar a habilidade o usuario ficara incapaz de utiliza-la por 4 turnos
                     saldoTurnosHabilidade = 5;
                     
                 }
@@ -124,6 +132,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
                 
             case FUGIR:
                 dado = jogarDado(6);
+                // avalia se a fuga foi bem sucessida
                 if (dado > 3){
                     fugiu = 1;
                     printf("Você fugiu do combate com sucesso!\n");
@@ -139,6 +148,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
         }
             
         if(inimigo.cargaAtual > 0 && !fugiu){
+            // turno que o inimigo da o dano
             printf("========== TURNO DO INIMIGO ==========\n");
             dado = jogarDado(20);
             danoRecebido = (inimigo.poderAtaque + dado) - defesaEfetiva;
@@ -146,6 +156,7 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
             printf("O %s deu %d de dano em você!\n", inimigo.nome, danoRecebido);
             printf("======================================\n");
         }
+        // a defesa efetiva volta a ser igual a blindagem do adroid ao fim do turno
         defesaEfetiva = jogador->blindagem;
         saldoTurnosHabilidade--;
         pausar();
@@ -160,13 +171,15 @@ void iniciarCombate(Personagem *jogador, int faseAtual){
     }
     else{
         printf("AMEAÇA ELIMINADA! Como recompensa você ganhou %dxp.\n", inimigo.xpLiberado);
-        jogador->xp += inimigo.xpLiberado;
+        // o jogador ganha o xp liberado pelo monstro
+        jogador->xp += inimigo.xpLiberado;        
         aplicarBonusAleatorio(jogador);
         verificarXpMax(jogador);
     }
     
 }
 
+// aqui segue praticamente a mesma logica do combate com os monstros
 void iniciarCombateChefe(Personagem *jogador, int faseAtual){
     Monstro chefao;
     switch(faseAtual){
@@ -194,6 +207,8 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             strcpy(chefao.nome, "Vírus Primordial");
             break;
     }
+
+    // exibir na tela uma dialogo ao encontrar o monstro de acordo com a fase
     printf("\n------------------------------------------------------------------\n");
     printf("[ALERTA CRITICO]: %s bloqueando a passagem!\n", chefao.nome);
     printf("------------------------------------------------------------------\n");
@@ -269,6 +284,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
                         printf("Seu dano aumentou em 50%%!\n");
                         printf("Voce deu %d de dano na bateria do inimigo!\n", dano);
                     }
+                    // na batalha com o chefao o saldo disponivel é de 2 rodadas sem usar
                     saldoTurnosHabilidade = 3;
                 }
                 else{
@@ -305,16 +321,20 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
     }
 }
 
+// função criada para dar dano no inimigo
 void infringirDano(Monstro *m, int *dano){
     if (*dano < 1){
         *dano = 1;
     }
+    // a carga do inimigo é atualizada via ponteiro
     m->cargaAtual -= *dano;
 }
 
+// função para receber o dando do inimigo
 void receberDano(Personagem *jogador, int *dano){
     if(*dano < 1){
         *dano = 1;
     }
+    // a carga do android é atuaizada via ponteiro
     jogador->cargaAtual -= *dano;
 }

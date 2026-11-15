@@ -36,6 +36,7 @@ int main(){
     }
     
     limpar_terminal();
+    // ebibe a mensagem final de acordo com o desfecho do jogo
     exibirMensagemFinal(heroi);
     
     return 0;

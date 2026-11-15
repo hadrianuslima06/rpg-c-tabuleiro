@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "terminal.h"
 
+// essa função foi implementada para usar ao decorrer do jogo
+// para deixar visualmente mais agradável
+// funciona tanto em Linux, MacOS e Windows
 void limpar_terminal(){
     #ifdef _WIN32
     system("cls");
@@ -9,26 +12,42 @@ void limpar_terminal(){
     system("clear");
     #endif
 }
+
+// Essa função de o objetivo caracteres pendentes do buffer
 void limparBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+    // o getchar retira o proximo caracter da fila e atribui na variavel c (int porque essa 
+    // função retorna numeros interiro de 0 a 255), depois ele verifica se esse C é diferente
+    // de \n(enter) e se é diferente de EOF (fim do arquivo)
+    // esse laço de repete ate uma das condições de para for satisfeita
 }
+
+// Fiz essa função para dar certas pausas no jogo, principalmente  em dialgos e interações
 void pausar() {
     printf("Clique em ENTER para continuar.\n");
     limparBuffer();
+    // utiliza a função anterior ate que o jogador clique em ENTER
 }
 
+// fiz essa função para verificar se o usuario não digitou uma letra ao inves de um numero
 int lerOpcaoSegura() {
     int opcao;
     int status = scanf("%d", &opcao);
+    // como a função scanf retorna a quantidade de itens que foram lidos, atribui isso na
+    // variavel status
     limparBuffer();
 
+    // aqui verifiquei se o status é diferente de 1, se for, significa que o usuario informou
+    // um dado invalido, retornado -1 pra essa função
+    // esse -1 retornado vai fazer com que a opção caia no default do switch case
     if (status != 1) {
         return -1;
     }
     return opcao;
 }
 
+// apenas para introduzir o jogo
 void exibirPrologo(){
     limpar_terminal();
     printf("==================================================================\n");
