@@ -171,7 +171,7 @@ images/
 
 As ilustrações das classes jogáveis (`images/personagens/`) e dos chefes de setor (`images/monstros/`) foram geradas por inteligência artificial com base nas especificações de equipamento, habilidades e cenários do Setor Alfa.
 
-* **Ferramenta utilizada:** [Coloque aqui o nome da IA que você usou, ex.: Gemini / Bing Image Creator / Leonardo.ai]
+* **Ferramenta utilizada:** ChatGPT
 
 <details>
 <summary><strong>Clique para visualizar os prompts utilizados</strong></summary>
