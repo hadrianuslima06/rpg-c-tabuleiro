@@ -223,7 +223,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
         printf("Guindastes de carga e bracos de solda se movem como uma\n");
         printf("unica estrutura metalica, bloqueando a comporta do reator.\n\n");
         printf("[DRA. Valeria]: \"O virus fundiu o maquinario pesado da ala inteira nisso\n");
-        printf(" ai. O cartao de acesso ja destravou a porta atras dele — so falta\n");
+        printf(" ai. O cartao de acesso ja destravou a porta atras dele, so falta\n");
         printf(" tirar essa coisa do caminho.\"\n");
     }
     else {
@@ -237,7 +237,7 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
     printf("------------------------------------------------------------------\n");
 
     pausar();
-    int opcao, dano, dado, danoRecebido, defesaEfetiva = jogador->blindagem, saldoTurnosHabilidade = 0;
+    int opcao, dano, danoMinimo, dado, danoRecebido, defesaEfetiva = jogador->blindagem, saldoTurnosHabilidade = 0;
 
     do{
         limpar_terminal();
@@ -301,6 +301,14 @@ void iniciarCombateChefe(Personagem *jogador, int faseAtual){
             printf("========== TURNO DO INIMIGO ==========\n");
             dado = jogarDado(20);
             danoRecebido = (chefao.poderAtaque + dado) - defesaEfetiva;
+            danoMinimo = chefao.poderAtaque / 4;
+            if (danoMinimo < 1) {
+                danoMinimo = 1;
+            }
+            if (danoRecebido < danoMinimo){
+                danoRecebido = danoMinimo;
+            }
+            // garante que por mais forte que esteja o android, o inimigo vai dar pelo menos 25% do seu ataque em dano
             receberDano(jogador, &danoRecebido);
             printf("O %s deu %d de dano em você!\n", chefao.nome, danoRecebido);
             printf("======================================\n");

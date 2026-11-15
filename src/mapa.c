@@ -188,7 +188,7 @@ void exibirHistoriaFase(int fase){
            printf("FASE 3 - O NUCLEO DO SISTEMA\n");
             printf("------------------------------------------------------------------\n");
             printf("Voce chegou a camara do reator. Os servidores centrais vibram com\n");
-            printf("uma luz roxa instavel e o proprio ar parece carregado de estatica.\n\n");
+            printf("uma luz roxa instavel e o proprio ar parece carregado de energia.\n\n");
             printf("[DRA. Valeria]: \"E aqui. O Virus Primordial esta alojado direto no\n");
             printf(" mainframe. Se voce so destruir o corpo fisico dele, ele faz backup\n");
             printf(" na rede em segundos.\"\n\n");
