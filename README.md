@@ -43,7 +43,7 @@ O jogo é dividido em **3 fases** com dificuldade aumentada ao decorrer da progr
 
 ### 🎨 Geração das Artes Conceituais (IA)
 
-As ilustrações das classes jogáveis (`images/personagens/`) e dos chefes de setor (`images/monstros/`) foram geradas por inteligência artificial com base nas especificações de equipamento, habilidades e cenários do Setor Alfa.
+As ilustrações das classes jogáveis (`images/personagens/`) e dos chefes de setor (`images/chefões/`) foram geradas por inteligência artificial com base nas especificações de equipamento, habilidades e cenários do Setor Alfa.
 
 * **Ferramenta utilizada:** ChatGPT
 
@@ -150,7 +150,7 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 │   │   ├── VANGUARDA.png
 │   │   ├── INFILTRADOR.png
 │   │   └── ARTILHEIRO.png
-│   └── monstros/
+│   └── chefões/
 │       ├── GUARDIAO_DO_PERIMETRO.png
 │       ├── AMALGAMA_CIBERNETICO.png
 │       └── VIRUS_PRIMORDIAL.png       # Artes conceituais dos personagens e monstros
