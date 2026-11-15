@@ -31,6 +31,11 @@ Ao iniciar o sistema, o jogador escolhe uma entre três configurações de comba
 
 O jogo é dividido em **3 fases** com dificuldade aumentada ao decorrer da progressão. Nas Fases 2 e 3, o acesso ao chefão exige que o jogador pare antes em uma casa de terminal (`[ ? ]`) para coletar o item de missão; caso contrário, a trava de segurança manda o android de volta ao início do setor.
 
+### Galeria dos Chefes de Setor
+| Guardião do Perímetro (Fase 1) | Amálgama Cibernético (Fase 2) | Vírus Primordial (Fase 3) |
+| :---: | :---: | :---: |
+| ![Guardião do Perímetro](images/monstros/guardiao.png) | ![Amálgama Cibernético](images/monstros/amalgama.png) | ![Vírus Primordial](images/monstros/virus_primordial.png) |
+
 ### Fase 1 — Perímetro Externo
 * **Missão:** Atravessar o pátio externo e derrotar o Guardião do Perímetro para liberar o elevador de carga (trava mecânica, não exige nenhum item especial).
 * **Inimigos Comuns:**
@@ -104,7 +109,15 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 │   ├── mapa.c         # Inicialização/exibição do vetor mapa, eventos e diálogos
 │   ├── personagem.c   # Inicialização de atributos, bônus aleatório e evolução por ponteiros
 │   └── terminal.c     # Limpeza de buffer e utilitários de terminal
-├── images/            # Artes conceituais dos personagens e monstros (opcional)
+images/
+├── personagens/
+│   ├── VANGUARDA.png
+│   ├── INFILTRADOR.png
+│   └── ARTILHEIRO.png
+└── chefões/
+    ├── GUARDIAO_DO_PERIMETRO.png
+    ├── AMALGAMA_CIBERNETICO.png
+    └── VIRUS_PRIMORDIAL.png          # Artes conceituais dos personagens e monstros
 ├── video/
 │   └── link_video.md  # Link para o vídeo de demonstração no YouTube/Drive
 ├── Makefile           # Automação de compilação (-std=c99)
@@ -154,7 +167,36 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 
 ---
 
+### 🎨 Geração das Artes Conceituais (IA)
 
+As ilustrações das classes jogáveis (`images/personagens/`) e dos chefes de setor (`images/monstros/`) foram geradas por inteligência artificial com base nas especificações de equipamento, habilidades e cenários do Setor Alfa.
+
+* **Ferramenta utilizada:** [Coloque aqui o nome da IA que você usou, ex.: Gemini / Bing Image Creator / Leonardo.ai]
+
+<details>
+<summary><strong>Clique para visualizar os prompts utilizados</strong></summary>
+
+#### Personagens (`images/personagens/`)
+* **Vanguarda (`VANGUARDA.png`):**
+  > *"Gere uma imagem de corpo inteiro de um androide de combate pesado cuja sua classe é Vanguarda, equipado com placas espessas de armadura de titânio em camadas, ombreiras reforçadas e uma barreira de escudo de energia azul ciano translúcida a frente do antebraço. Capacete futurista com visor óptico azul, em pé dentro de um corredor industrial escuro de uma usina geotérmica com algumas estruturas metálicas, um pouco de fumaça e luzes de emergência vermelhas ao fundo. Um design sci-fi realista, articulações mecânicas detalhadas, textura de metal um pouco desgastado, imagem conceitual de personagem de jogo, alta definição."*
+
+* **Infiltrador (`INFILTRADOR.png`):**
+  > *"Gere uma imagem de corpo inteiro de um androide ágil e leve cuja sua classe é Infiltrador, com chassi mais fino de fibra de carbono preto fosco e liga metálica escura, formato aerodinâmico e conduítes neurais brilhantes em azul ciano conectados a uma unidade de processamento de alta frequência na parte superior das costas. Cabeça tática com sensores ópticos azuis brilhantes, arcos elétricos de drenagem de energia nas manoplas, em pé dentro de um corredor industrial escuro de uma usina geotérmica com algumas estruturas metálicas, um pouco de fumaça e luzes de emergência vermelhas ao fundo. Um design sci-fi realista, articulações mecânicas detalhadas, textura de metal um pouco desgastado, imagem conceitual de personagem de jogo, alta definição."*
+
+* **Artilheiro (`ARTILHEIRO.png`):**
+  > *"Gere uma imagem de corpo inteiro de um androide de combate ofensivo médio leve cuja sua classe é Artilheiro, com chassi tático aerodinâmico e blindagem leve menor para mobilidade, usando um capacete futurista com visor óptico azul brilhante e uma mira de precisão. Postando um rifle de plasma pesado e detalhado com bobinas de energia azul ciano forte, saídas de calor e partículas de plasma carregadas prontas para disparar, em pé dentro de um corredor industrial escuro de uma usina geotérmica com algumas estruturas metálicas, um pouco de fumaça e luzes de emergência vermelhas ao fundo. Um design sci-fi realista, articulações mecânicas detalhadas, textura de metal um pouco desgastado, imagem conceitual de personagem de jogo, alta definição."*
+
+#### Chefes de Setor (`images/monstros/`)
+* **Guardião do Perímetro (`GUARDIAO_DO_PERIMETRO.png`):**
+  > *"Gere uma imagem de corpo inteiro de um robô chefe de defesa de segurança corrompido e grande, seu nome é Guardião do Perímetro, com armadura frontal pesada de blindagem rígida, vários sensores ópticos vermelho (carmesim) brilhantes e miras laser vermelhas, acoplado a estabilizadores hidráulicos pesados. Em pé em um pátio industrial escuro e chuvoso de uma usina geotérmica com estruturas metálicas molhadas e luzes de emergência vermelhas ao fundo. Uma estética de máquina corrompida por vírus, design sci-fi realista, aço escuro desgastado, imagem conceitual de chefe de jogo, alta definição."*
+
+* **Amálgama Cibernético (`AMALGAMA_CIBERNETICO.png`):**
+  > *"Gere uma imagem de corpo inteiro de uma máquina industrial monstruosa fundida, seu nome é Amálgama Cibernético, uma criatura mecânica assimétrica imponente feita de guindastes de carga pesados, braços de solda industriais, garras hidráulicas e vigas de aço retorcidas fundidas por um vírus de computador. Circuitos corrompidos brilhando em vermelho (carmesim), cabos de alta tensão soltando faíscas e maçaricos de plasma acesos. Em pé em um setor subterrâneo quente e enfumaçado de manutenção industrial bloqueando a comporta de um reator, faíscas laranjas e luzes de alarme vermelhas ao fundo. Design sci-fi industrial realista, texturas de metal manchado de óleo, iluminação dramática, imagem conceitual de chefe de jogo, alta definição."*
+
+* **Vírus Primordial (`VIRUS_PRIRMODIAL.png`):**
+  > *"Gere uma imagem de corpo inteiro de um avatar físico de núcleo cibernético chefe final, seu nome é Vírus Primordial, uma entidade imponente levitando conectada ao mainframe central, ao redo tem estruturas de servidores escuros, cabos de fibra óptica grossos e lâminas metálicas flutuantes. Um núcleo de vírus holográfico em vermelho (carmesim) e violeta no centro do peito, projetando fluxos de código digital vermelho com falhas e eletricidade estática roxa. Dentro de uma câmara do núcleo de um reator geotérmico futurista com monitores piscando em vermelho e torres de servidores ao fundo. Design sci-fi futurista, iluminação de alto contraste, imagem conceitual de chefe final de jogo, alta definição."*
+
+</details>
 
 ## 🎥 Vídeo de Demonstração
 
