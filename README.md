@@ -60,7 +60,7 @@ As ilustrações das classes jogáveis (`images/personagens/`) e dos chefes de s
 * **Artilheiro (`ARTILHEIRO.png`):**
   > *"Gere uma imagem de corpo inteiro de um androide de combate ofensivo médio leve cuja sua classe é Artilheiro, com chassi tático aerodinâmico e blindagem leve menor para mobilidade, usando um capacete futurista com visor óptico azul brilhante e uma mira de precisão. Postando um rifle de plasma pesado e detalhado com bobinas de energia azul ciano forte, saídas de calor e partículas de plasma carregadas prontas para disparar, em pé dentro de um corredor industrial escuro de uma usina geotérmica com algumas estruturas metálicas, um pouco de fumaça e luzes de emergência vermelhas ao fundo. Um design sci-fi realista, articulações mecânicas detalhadas, textura de metal um pouco desgastado, imagem conceitual de personagem de jogo, alta definição."*
 
-#### Chefes de Setor (`images/monstros/`)
+#### Chefes de Setor (`images/chefões/`)
 * **Guardião do Perímetro (`GUARDIAO_DO_PERIMETRO.png`):**
   > *"Gere uma imagem de corpo inteiro de um robô chefe de defesa de segurança corrompido e grande, seu nome é Guardião do Perímetro, com armadura frontal pesada de blindagem rígida, vários sensores ópticos vermelho (carmesim) brilhantes e miras laser vermelhas, acoplado a estabilizadores hidráulicos pesados. Em pé em um pátio industrial escuro e chuvoso de uma usina geotérmica com estruturas metálicas molhadas e luzes de emergência vermelhas ao fundo. Uma estética de máquina corrompida por vírus, design sci-fi realista, aço escuro desgastado, imagem conceitual de chefe de jogo, alta definição."*
 
@@ -206,4 +206,4 @@ O projeto foi modularizado em arquivos de cabeçalho (`include/`) e implementaç
 
 ## 🎥 Vídeo de Demonstração
 
-* **Link do Gameplay:** [colocarei quando tiver pronto]
+* **Link do Gameplay:** https://drive.google.com/drive/folders/10jkRAgndZP8_zUJi7MTKpn4REwO-hr8K?usp=sharing
